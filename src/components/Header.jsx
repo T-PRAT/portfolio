@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { UseState, useEffect, useState } from 'react'
 
 export default function Header() {
-	const [colorTheme, setColorTheme] = useEffect(localStorage.theme);
-	function darkSwitch() {
+	const [colorTheme, setColorTheme] = useState(localStorage.theme);
+	const darkSwitch = () => {
 		if (localStorage.theme === 'light') {
 			localStorage.theme = 'dark'
 			document.documentElement.classList.add('dark')
@@ -11,6 +11,8 @@ export default function Header() {
 			document.documentElement.classList.remove('dark')
 		}
 	}
+	useEffect(() => {
+	}, [])
 	return (
 		<nav className='w-full flex p-3 items-center px-20'>
 			<h1 className='text-xl'>Titouan PRAT</h1>
@@ -20,9 +22,9 @@ export default function Header() {
 				<a className='mx-5'>Projets</a>
 			</div>
 			<div className=' h-10 w-10 m-3 rounded-full'>
-				{colorTheme == "light" ?
-					<svg onClick={darkSwitch} className="w-9 h-9 bg-center hover:text-slate-900" fill='currentColor' viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-						<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+				{colorTheme == "dark" ?
+					<svg onClick={darkSwitch} className="w-9 h-9 bg-center hover:text-marron dark:hover:text-marron-foncé" fill='currentColor' viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+						<path className=' hover:shadow' d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
 					</svg>
 					:
 					<svg onClick={darkSwitch} className="w-9 h-9 bg-center hover:text-slate-100" fill='currentColor' viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
