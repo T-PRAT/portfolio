@@ -6,16 +6,18 @@ export default function Header() {
 		if (localStorage.theme === 'light') {
 			localStorage.theme = 'dark'
 			document.documentElement.classList.add('dark')
+			setColorTheme("dark")
 		} else {
 			localStorage.theme = 'light'
 			document.documentElement.classList.remove('dark')
+			setColorTheme("light")
 		}
 	}
 	useEffect(() => {
 	}, [])
 	return (
 		<nav className='w-full flex p-3 items-center px-20'>
-			<h1 className='text-xl'>Titouan PRAT</h1>
+			<h2 className='text-xl'>tprat.fr</h2>
 			<div className='grow'></div>
 			<div className='flex mr-10'>
 				<a className='mx-5'>Accueil</a>

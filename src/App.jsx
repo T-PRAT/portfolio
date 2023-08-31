@@ -1,12 +1,14 @@
 import Header from "./components/Header"
+import ParticleBackground from "./components/ParticleBackground"
 
 function App() {
 
   return (
     <div className="">
+      <ParticleBackground />
       <Header />
-      <h1 className="text-white">Hello</h1>
-      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero iusto quam illum laborum enim veritatis assumenda dicta amet a facilis et, molestias ullam provident, ea aliquam! Ab amet quis provident.</p>
+      <h1 className="text-white">Titouan PRAT</h1>
+      <p>Bonjour et bienvenue sur mon portfolio de développeur web junior !</p>
     </div >
   )
 }
