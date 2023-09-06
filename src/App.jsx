@@ -1,5 +1,7 @@
 import Header from "./components/Header"
+import Hero from "./components/Hero"
 import ParticleBackground from "./components/ParticleBackground"
+import Projects from "./components/Projects"
 
 function App() {
 
@@ -7,8 +9,8 @@ function App() {
     <div className="">
       <ParticleBackground />
       <Header />
-      <h1 className="text-white">Titouan PRAT</h1>
-      <p>Bonjour et bienvenue sur mon portfolio de développeur web junior !</p>
+      <Hero />
+      <Projects />
     </div >
   )
 }

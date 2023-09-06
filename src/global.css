@@ -5,4 +5,5 @@
 html,
 body {
 	@apply bg-creme text-noir dark:bg-noir dark:text-creme font-mono transition-colors duration-500 h-full;
+	cursor: none;
 }

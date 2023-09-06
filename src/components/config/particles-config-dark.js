@@ -1,14 +1,14 @@
 const particlesConfig = {
 	particles: {
 		number: {
-			value: 123,
+			value: 80,
 			density: {
 				enable: true,
 				value_area: 800
 			}
 		},
 		color: {
-			value: "#fff"
+			value: "#EAE0D5"
 		},
 		shape: {
 			type: "circle",
@@ -36,11 +36,11 @@ const particlesConfig = {
 			}
 		},
 		size: {
-			value: 10,
+			value: 6,
 			random: true,
 			anim: {
 				enable: false,
-				speed: 40,
+				speed: 10,
 				size_min: 0.1,
 				sync: false
 			}
@@ -48,13 +48,13 @@ const particlesConfig = {
 		line_linked: {
 			enable: false,
 			distance: 500,
-			color: "#ffffff",
+			color: "#EAE0D5",
 			opacity: 0.4,
 			width: 2
 		},
 		move: {
 			enable: true,
-			speed: 4.734885849793636,
+			speed: 1.2,
 			direction: "bottom",
 			random: false,
 			straight: false,
@@ -68,11 +68,11 @@ const particlesConfig = {
 		}
 	},
 	interactivity: {
-		detect_on: "canvas",
+		detect_on: "window",
 		events: {
 			onhover: {
 				enable: true,
-				mode: "bubble"
+				mode: "grab"
 			},
 			onclick: {
 				enable: true,

@@ -1,6 +1,7 @@
 import React, { useCallback } from "react"
 import Particles from "react-tsparticles"
-import particlesConfig from "./config/particles-config"
+import particlesConfigDark from "./config/particles-config-dark"
+import particlesConfigLight from "./config/particles-config-light"
 import { loadSlim } from "tsparticles-slim";
 
 export default function ParticleBackground() {
@@ -20,9 +21,13 @@ export default function ParticleBackground() {
 	return (
 		<Particles
 			id="tsparticles"
+			height="100%"
+			width="100%"
+			position="fixed"
+			zIndex="-1"
 			init={particlesInit}
 			loaded={particlesLoaded}
-			options={particlesConfig}
+			options={particlesConfigDark}
 		/>
 	);
 };
