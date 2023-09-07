@@ -1,5 +1,4 @@
 import React, { UseState, useEffect, useState } from 'react'
-import ParticleBackground from './ParticleBackground'
 
 export default function Header() {
 	const [colorTheme, setColorTheme] = useState(localStorage.theme);

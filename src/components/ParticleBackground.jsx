@@ -21,10 +21,6 @@ export default function ParticleBackground() {
 	return (
 		<Particles
 			id="tsparticles"
-			height="100%"
-			width="100%"
-			position="fixed"
-			zIndex="-1"
 			init={particlesInit}
 			loaded={particlesLoaded}
 			options={particlesConfigDark}
