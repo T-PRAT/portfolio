@@ -1,28 +1,44 @@
 const particlesConfig = {
+	themes: [
+		{
+			name: "light",
+			default: {
+				mode: "light"
+			},
+			options: {
+				background: {
+					color: "#EAE0D5"
+				},
+				particles: {
+					color: {
+						value: "#000000"
+					}
+				}
+			}
+		},
+		{
+			name: "dark",
+			default: {
+				mode: "dark"
+			},
+			options: {
+				background: {
+					color: "#000000"
+				},
+				particles: {
+					color: {
+						value: "#EAE0D5"
+					}
+				}
+			}
+		}
+	],
 	particles: {
 		number: {
 			value: 80,
 			density: {
 				enable: true,
 				value_area: 800
-			}
-		},
-		color: {
-			value: "#000000"
-		},
-		shape: {
-			type: "circle",
-			stroke: {
-				width: 0,
-				color: "#EAE0D5"
-			},
-			polygon: {
-				nb_sides: 5
-			},
-			image: {
-				src: "img/github.svg",
-				width: 100,
-				height: 100
 			}
 		},
 		opacity: {
@@ -44,13 +60,6 @@ const particlesConfig = {
 				size_min: 0.1,
 				sync: false
 			}
-		},
-		line_linked: {
-			enable: false,
-			distance: 500,
-			color: "#000000",
-			opacity: 0.4,
-			width: 2
 		},
 		move: {
 			enable: true,
@@ -106,6 +115,7 @@ const particlesConfig = {
 			}
 		}
 	},
+
 	retina_detect: true
-}
+};
 export default particlesConfig;

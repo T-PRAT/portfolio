@@ -2,15 +2,16 @@ import React, { UseState, useEffect, useState } from 'react'
 
 export default function Header() {
 	const [colorTheme, setColorTheme] = useState(localStorage.theme);
+
 	const darkSwitch = () => {
 		if (localStorage.theme === 'light') {
-			localStorage.theme = 'dark'
-			document.documentElement.classList.add('dark')
-			setColorTheme("dark")
+			localStorage.theme = 'dark';
+			document.documentElement.classList.add('dark');
+			setColorTheme("dark");
 		} else {
-			localStorage.theme = 'light'
-			document.documentElement.classList.remove('dark')
-			setColorTheme("light")
+			localStorage.theme = 'light';
+			document.documentElement.classList.remove('dark');
+			setColorTheme("light");
 		}
 	}
 	return (
