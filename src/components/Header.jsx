@@ -1,4 +1,5 @@
 import React, { UseState, useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Header() {
 	const [colorTheme, setColorTheme] = useState(localStorage.theme);
@@ -16,7 +17,7 @@ export default function Header() {
 	}
 	return (
 		<nav className='w-full flex p-3 items-center px-20'>
-			<h2 className='text-xl'><a href="#home">tprat.fr</a></h2>
+			<h2 className='text-xl'><Link to="/">tprat.fr</Link></h2>
 			<div className='grow'></div>
 			<div className=' h-10 w-10 m-3 rounded-full'>
 				{colorTheme == "dark" ?

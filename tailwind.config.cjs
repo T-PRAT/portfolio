@@ -13,7 +13,6 @@ module.exports = {
     colors: {
       'creme': "#EAE0D5",
       'noir': "#0A0908",
-      'petrole': "#22333B",
       'marron': "#C6AC8F",
       'marron-foncé': "#5E503F",
     },
