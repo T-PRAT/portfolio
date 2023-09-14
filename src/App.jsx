@@ -6,7 +6,6 @@ import ParticleBackground from "./components/ParticleBackground"
 import Projects from "./components/Projects"
 import NotFound from "./components/NotFound"
 
-
 function App() {
   return (
     <>
