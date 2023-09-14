@@ -16,7 +16,22 @@ module.exports = {
       'marron': "#C6AC8F",
       'marron-foncé': "#5E503F",
     },
-    extend: {},
+    extend: {
+      animation: {
+        'spin-slow': 'spin ease-in-out 3s infinite',
+      },
+    },
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/line-clamp"),
+  ],
+  corePlugins: {
+    animation: false,
+  },
+  animation: {
+    blink: {
+      "0%, 100%": { opacity: 0 },
+      "50%": { opacity: 1 },
+    }
+  }
 }
