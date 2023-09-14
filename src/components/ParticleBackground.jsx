@@ -24,6 +24,7 @@ export default function ParticleBackground() {
 			init={particlesInit}
 			loaded={particlesLoaded}
 			options={particlesConfig}
+			className="z-0"
 		/>
 	);
 };

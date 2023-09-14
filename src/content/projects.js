@@ -11,6 +11,6 @@ export const projectsList = [
 		title: "La Voyette",
 		desc: "Projet de groupe de la fin de ma formation THP; ce site présente une compagnie de théâtre.",
 		technos: "NextJS, React, Typescript, Prisma, Mui",
-		link: "https://la-voyette.vercel.app/",
+		link: "https://la-voyette.vercel.app",
 	}
 ]
