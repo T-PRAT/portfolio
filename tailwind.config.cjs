@@ -23,10 +23,9 @@ module.exports = {
     },
   },
   plugins: [
-    require("@tailwindcss/line-clamp"),
   ],
   corePlugins: {
-    animation: false,
+    animation: true,
   },
   animation: {
     blink: {
