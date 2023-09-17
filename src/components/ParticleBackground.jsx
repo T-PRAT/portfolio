@@ -1,16 +1,13 @@
 import React, { useCallback } from "react"
 import Particles from "react-tsparticles"
-import particlesConfigDark from "./config/particles-config-dark"
-import particlesConfig from "./config/particles-config"
+import { darkTheme, lightTheme } from "./config/particles-config"
 import { loadSlim } from "tsparticles-slim";
+import { useDarkMode } from "./DarkModeContext";
 
 export default function ParticleBackground() {
+	const { darkMode } = useDarkMode();
 	const particlesInit = useCallback(async engine => {
 		console.log(engine);
-		// you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
-		// this loads the tsparticles package bundle, it's the easiest method for getting everything ready
-		// starting from v2 you can add only the features you need reducing the bundle size
-		//await loadFull(engine);
 		await loadSlim(engine);
 	}, []);
 
@@ -18,12 +15,14 @@ export default function ParticleBackground() {
 		await console.log(container);
 	}, []);
 
+	const selectedTheme = darkMode ? darkTheme : lightTheme;
+
 	return (
 		<Particles
 			id="tsparticles"
 			init={particlesInit}
 			loaded={particlesLoaded}
-			options={particlesConfig}
+			options={selectedTheme}
 			className="z-0"
 		/>
 	);
