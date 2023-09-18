@@ -1,7 +1,7 @@
 import React from 'react'
 import { projectsList } from '../content/projects'
-import Project from './Project';
-import Typewriter from './Typewriter';
+import Project from '../components/Project';
+import Typewriter from '../components/Typewriter';
 
 export default function Projects() {
 	const projects = projectsList;

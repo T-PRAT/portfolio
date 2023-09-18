@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Typewriter from './Typewriter'
+import Typewriter from '../components/Typewriter'
 
 export default function Hero() {
 	return (
