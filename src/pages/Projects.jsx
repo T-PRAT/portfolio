@@ -6,9 +6,9 @@ import Typewriter from '../components/Typewriter';
 export default function Projects() {
 	const projects = projectsList;
 	return (
-		<div id="projects" className='m-5 lg:m-20 z-30 absolute'>
-			<Typewriter className='text-4xl mb-10 text-center md:text-left' text="Mes différentes realisations" />
-			<div className='grid grid-cols-1 lg:grid-cols-2 w-full h-2/4'>
+		<div id="projects" className='absolute z-30 m-5 lg:m-20'>
+			<Typewriter className='mb-10 text-4xl text-center md:text-left' text="Mes différentes realisations" />
+			<div className='grid w-full grid-cols-1 lg:grid-cols-2 h-2/4'>
 				{projects.map((project) => (
 					<Project key={project.id} {...project} />
 				))}

@@ -11,7 +11,6 @@ module.exports = {
       'mono': ['Space Mono', 'ui-monospace', 'SFMono-Regular'],
     },
     colors: {
-      'bleu-500': "#181818",
       'gris': {
         100: "#c1c1c1",
         200: "#6d6d6d",
@@ -36,7 +35,7 @@ module.exports = {
       },
       animation: {
         'slide-up-fast': 'slide-up 0.5s',
-        'slide-up': 'slide-up 0.7s',
+        'slide-up': 'slide-up 0.7st',
         'slide-up-slow': 'slide-up 1s',
         'spin-slow': 'spin ease-in-out 3s infinite',
       },
