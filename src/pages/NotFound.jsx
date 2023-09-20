@@ -10,6 +10,6 @@ export default function NotFound() {
 		}, 2000)
 	})
 	return (
-		<h2 className='text-center text-creme m-20'>Cette page est introuvable. Redirection...</h2>
+		<h2 className='text-center text-gris-100 m-20'>Cette page est introuvable. Redirection...</h2>
 	)
 }

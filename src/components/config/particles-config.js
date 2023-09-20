@@ -1,7 +1,7 @@
 const lightTheme = {
 	particles: {
 		color: {
-			value: "#000000"
+			value: "#fff"
 		},
 		number: {
 			value: 80,
@@ -11,7 +11,7 @@ const lightTheme = {
 			}
 		},
 		opacity: {
-			value: 0.5,
+			value: 0.9,
 			random: true,
 			anim: {
 				enable: false,
@@ -63,7 +63,7 @@ const lightTheme = {
 				distance: 300,
 				line_linked: {
 					opacity: 0.5,
-					color: "#000000"
+					color: "#1B313F"
 				}
 			},
 			bubble: {
@@ -123,7 +123,7 @@ const darkTheme = {
 		},
 		move: {
 			enable: true,
-			speed: 1.2,
+			speed: 1,
 			direction: "bottom",
 			random: false,
 			straight: false,

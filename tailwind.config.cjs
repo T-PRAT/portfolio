@@ -11,13 +11,33 @@ module.exports = {
       'mono': ['Space Mono', 'ui-monospace', 'SFMono-Regular'],
     },
     colors: {
-      'creme': "#EAE0D5",
-      'noir': "#0A0908",
-      'marron': "#C6AC8F",
-      'marron-foncé': "#5E503F",
+      'bleu-500': "#181818",
+      'gris': {
+        100: "#c1c1c1",
+        200: "#6d6d6d",
+        300: "#494949",
+        400: "#313131",
+        500: "#181818",
+      },
+      'bleu': {
+        100: "#BFD5E3",
+        200: "#376282",
+        300: "#1B313F",
+        400: "#13242E",
+        500: "#0E1B23",
+      },
     },
     extend: {
+      keyframes: {
+        "slide-up": {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(100%)' },
+        },
+      },
       animation: {
+        'slide-up-fast': 'slide-up 0.5s',
+        'slide-up': 'slide-up 0.7s',
+        'slide-up-slow': 'slide-up 1s',
         'spin-slow': 'spin ease-in-out 3s infinite',
       },
     },

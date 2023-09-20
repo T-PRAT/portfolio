@@ -4,6 +4,6 @@
 
 html,
 body {
-	@apply bg-creme text-noir dark:bg-noir dark:text-creme font-mono transition-colors duration-500 h-full overflow-hidden;
+	@apply bg-bleu-100 text-bleu-500 dark:bg-gris-500 dark:text-gris-100 font-mono transition-colors duration-500 h-full overflow-hidden;
 	cursor: none;
 }
