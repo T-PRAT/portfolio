@@ -32,24 +32,19 @@ module.exports = {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(100%)' },
         },
-      },
-      animation: {
-        'slide-up-fast': 'slide-up 0.5s',
-        'slide-up': 'slide-up 0.7st',
-        'slide-up-slow': 'slide-up 1s',
-        'spin-slow': 'spin ease-in-out 3s infinite',
+        'blink': {
+          "0%, 100%": { opacity: 0 },
+          "50%": { opacity: 1 },
+        },
       },
     },
+    animation: {
+      'slide-up-fast': 'slide-up 0.5s',
+      'slide-up': 'slide-up 0.7s',
+      'slide-up-slow': 'slide-up 1s',
+      'spin-slow': 'spin ease-in-out 3s infinite',
+      'blink': 'blink 1s infinite',
+    },
   },
-  plugins: [
-  ],
-  corePlugins: {
-    animation: true,
-  },
-  animation: {
-    blink: {
-      "0%, 100%": { opacity: 0 },
-      "50%": { opacity: 1 },
-    }
-  }
 }
+

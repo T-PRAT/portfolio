@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import Mountain from '../components/Mountain'
 
 export default function NotFound() {
 	const navigate = useNavigate()
@@ -10,6 +11,9 @@ export default function NotFound() {
 		}, 2000)
 	})
 	return (
-		<h2 className='m-20 text-center text-gris-100'>Cette page est introuvable. Redirection...</h2>
+		<>
+			<h2 className='m-20 text-3xl text-center text-bleu-400 dark:text-gris-100'>Cette page est introuvable. Redirection...</h2>
+			<Mountain altitude={3} />
+		</>
 	)
 }
