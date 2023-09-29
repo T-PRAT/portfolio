@@ -2,7 +2,7 @@ export const projectsList = [
 	{
 		id: 0,
 		title: "Faceitmappick",
-		desc: "Faceitmappick est un site web d'avoir des infos supplémentaire sur une feuille de match sur le site faceit.",
+		desc: "Faceitmappick est un site web qui permet d'avoir des infos supplémentaire sur une feuille de match sur le site faceit.",
 		technos: "NextJS, React, TailwindCSS",
 		link: "https://faceitmappick.vercel.app",
 	},

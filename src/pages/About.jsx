@@ -6,30 +6,30 @@ import Typewriter from '../components/Typewriter';
 export default function About() {
 	return (
 		<>
-			<div className='m-12 absolute z-30 px-0 lg:px-24'>
+			<div className='m-12 absolute z-30 px-0 md:px-12 lg:px-24'>
 				<h2>
 					<Typewriter className='mb-10 text-3xl  text-center md:text-left md:text-4xl ' text="À propos de moi" />
 				</h2>
 				<div className=''>
-					<div className="flex text-sm md:text-base transition-opacity ">
+					<div className="text-sm md:text-base transition-opacity ">
+						<img className='float-right  sm:block dark:grayscale h-32 md:h-52 rounded-full border-4 backdrop-blur-[3px] m-2' src="/img/titouan_prat.png" alt="Titouan Prat" />
 						<p className='leading-relaxed indent-8'>Je m'appelle <b>Titouan PRAT</b>, je suis un développeur de la région toulousaine. J'ai toujours été attiré par le monde de l'informatique et de la programmation. Pendant mon cursus à l'<b>école 42</b>, j'ai appris à réaliser des projets de A à Z puis avec ma formation à <b>THP </b>j'ai découvert le web et me suis spécialiser sur <b>react</b>. <br />
 							<span className='ml-8'></span>Passionné par le développement web et le design, j'adore découvrir de nouvelles technologies et je suis toujours en quête de nouvelles compétences.</p>
-						<img className='hidden sm:block dark:grayscale max-h-52 max-w-52 rounded-full lg:-translate-y-10 border-4 backdrop-blur-[3px] mx-7' src="/img/titouan_prat.png" alt="Titouan Prat" />
 					</div>
 					<div className="flex flex-wrap">
 						<div className='text-sm md:text-xl my-5 lg:pr-32'>N'hésitez pas à <a className='underline' href='/pdf/CV_Tiouan_Prat.pdf' download>télécharger mon CV</a> ou à consulter mon <a className='underline' href='https://www.linkedin.com/in/titouan-prat-3672a9220/'>linkedin</a>.</div>
 						<div>
 							<h3 className='text-md md:text-2xl mt-5 mb-2'>Technos préférées</h3>
 							<div className='flex space-x-5'>
-								<svg className='dark:fill-gris-100 fill-color-400 hover:cursor-pointer' width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<svg className='dark:fill-gris-100 fill-vert-400 hover:cursor-pointer' width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 									<title>React</title>
 									<path d="M12,10.11A1.87,1.87,0,1,1,10.13,12,1.88,1.88,0,0,1,12,10.11M7.37,20c.63.38,2-.2,3.6-1.7a24.22,24.22,0,0,1-1.51-1.9A22.7,22.7,0,0,1,7.06,16c-.51,2.14-.32,3.61.31,4m.71-5.74-.29-.51a7.91,7.91,0,0,0-.29.86c.27.06.57.11.88.16l-.3-.51m6.54-.76.81-1.5-.81-1.5c-.3-.53-.62-1-.91-1.47C13.17,9,12.6,9,12,9s-1.17,0-1.71,0c-.29.47-.61.94-.91,1.47L8.57,12l.81,1.5c.3.53.62,1,.91,1.47.54,0,1.11,0,1.71,0s1.17,0,1.71,0c.29-.47.61-.94.91-1.47M12,6.78c-.19.22-.39.45-.59.72h1.18c-.2-.27-.4-.5-.59-.72m0,10.44c.19-.22.39-.45.59-.72H11.41c.2.27.4.5.59.72M16.62,4c-.62-.38-2,.2-3.59,1.7a24.22,24.22,0,0,1,1.51,1.9,22.7,22.7,0,0,1,2.4.36c.51-2.14.32-3.61-.32-4m-.7,5.74.29.51a7.91,7.91,0,0,0,.29-.86c-.27-.06-.57-.11-.88-.16l.3.51m1.45-7c1.47.84,1.63,3.05,1,5.63,2.54.75,4.37,2,4.37,3.68s-1.83,2.93-4.37,3.68c.62,2.58.46,4.79-1,5.63s-3.45-.12-5.37-1.95c-1.92,1.83-3.91,2.79-5.38,1.95s-1.62-3-1-5.63c-2.54-.75-4.37-2-4.37-3.68S3.08,9.07,5.62,8.32c-.62-2.58-.46-4.79,1-5.63s3.46.12,5.38,1.95c1.92-1.83,3.91-2.79,5.37-1.95M17.08,12A22.51,22.51,0,0,1,18,14.26c2.1-.63,3.28-1.53,3.28-2.26S20.07,10.37,18,9.74A22.51,22.51,0,0,1,17.08,12M6.92,12A22.51,22.51,0,0,1,6,9.74c-2.1.63-3.28,1.53-3.28,2.26S3.93,13.63,6,14.26A22.51,22.51,0,0,1,6.92,12m9,2.26-.3.51c.31,0,.61-.1.88-.16a7.91,7.91,0,0,0-.29-.86l-.29.51M13,18.3c1.59,1.5,3,2.08,3.59,1.7s.83-1.82.32-4a22.7,22.7,0,0,1-2.4.36A24.22,24.22,0,0,1,13,18.3M8.08,9.74l.3-.51c-.31,0-.61.1-.88.16a7.91,7.91,0,0,0,.29.86l.29-.51M11,5.7C9.38,4.2,8,3.62,7.37,4s-.82,1.82-.31,4a22.7,22.7,0,0,1,2.4-.36A24.22,24.22,0,0,1,11,5.7Z" />
 								</svg>
-								<svg className='dark:fill-gris-100 fill-color-400 hover:cursor-pointer' width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<svg className='dark:fill-gris-100 fill-vert-400 hover:cursor-pointer' width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 									<title>Next JS</title>
 									<path d="M11.2141 0.00645944C11.1625 0.0111515 10.9982 0.0275738 10.8504 0.039304C7.44164 0.346635 4.24868 2.18593 2.22639 5.01291C1.10029 6.58476 0.380059 8.36775 0.107918 10.2563C0.0117302 10.9156 0 11.1103 0 12.0041C0 12.898 0.0117302 13.0927 0.107918 13.7519C0.760117 18.2587 3.96716 22.0452 8.31672 23.4481C9.0956 23.6991 9.91672 23.8704 10.8504 23.9736C11.2141 24.0135 12.7859 24.0135 13.1496 23.9736C14.7613 23.7953 16.1267 23.3965 17.4733 22.7091C17.6798 22.6035 17.7196 22.5754 17.6915 22.5519C17.6727 22.5378 16.793 21.3578 15.7372 19.9314L13.8182 17.339L11.4135 13.7801C10.0903 11.8235 9.00176 10.2235 8.99238 10.2235C8.98299 10.2211 8.97361 11.8024 8.96891 13.7331C8.96188 17.1138 8.95953 17.2499 8.9173 17.3296C8.85631 17.4446 8.80938 17.4915 8.71085 17.5431C8.63578 17.5807 8.57009 17.5877 8.21584 17.5877H7.80997L7.70205 17.5197C7.63167 17.4751 7.58006 17.4164 7.54487 17.3484L7.4956 17.2428L7.50029 12.539L7.50733 7.83285L7.58006 7.74136C7.6176 7.69209 7.69736 7.62875 7.75367 7.59825C7.84985 7.55133 7.88739 7.54664 8.29325 7.54664C8.77185 7.54664 8.85161 7.5654 8.97595 7.70147C9.01114 7.73901 10.3132 9.7003 11.871 12.0628C13.4287 14.4252 15.5589 17.651 16.6053 19.2346L18.5056 22.1132L18.6018 22.0499C19.4534 21.4962 20.3543 20.7079 21.0674 19.8868C22.5853 18.1437 23.5636 16.0182 23.8921 13.7519C23.9883 13.0927 24 12.898 24 12.0041C24 11.1103 23.9883 10.9156 23.8921 10.2563C23.2399 5.74957 20.0328 1.96306 15.6833 0.560125C14.9161 0.311445 14.0997 0.140184 13.1848 0.036958C12.9595 0.0134976 11.4088 -0.0123089 11.2141 0.00645944ZM16.1267 7.26511C16.2393 7.32142 16.3308 7.42933 16.3636 7.54194C16.3824 7.60294 16.3871 8.90734 16.3824 11.8469L16.3754 16.0651L15.6317 14.9249L14.8856 13.7848V10.7185C14.8856 8.73608 14.895 7.62171 14.9091 7.56775C14.9466 7.43637 15.0287 7.33315 15.1413 7.27215C15.2375 7.22288 15.2727 7.21819 15.6411 7.21819C15.9883 7.21819 16.0493 7.22288 16.1267 7.26511Z" />
 								</svg>
-								<svg className='dark:fill-gris-100 fill-color-400 hover:cursor-pointer' width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+								<svg className='dark:fill-gris-100 fill-vert-400 hover:cursor-pointer' width="50px" height="50px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 									<title>Tailwind CSS</title>
 									<path d="M12.001,4.8c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 C13.666,10.618,15.027,12,18.001,12c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C16.337,6.182,14.976,4.8,12.001,4.8z M6.001,12c-3.2,0-5.2,1.6-6,4.8c1.2-1.6,2.6-2.2,4.2-1.8c0.913,0.228,1.565,0.89,2.288,1.624 c1.177,1.194,2.538,2.576,5.512,2.576c3.2,0,5.2-1.6,6-4.8c-1.2,1.6-2.6,2.2-4.2,1.8c-0.913-0.228-1.565-0.89-2.288-1.624 C10.337,13.382,8.976,12,6.001,12z" />
 								</svg>

@@ -12,7 +12,7 @@ export default function NotFound() {
 	})
 	return (
 		<>
-			<h2 className='m-20 text-3xl text-center text-color-400 dark:text-gris-100'>Cette page est introuvable. Redirection...</h2>
+			<h2 className='m-20 text-3xl text-center text-vert-400 dark:text-gris-100'>Cette page est introuvable. Redirection...</h2>
 			<Mountain altitude={3} />
 		</>
 	)
