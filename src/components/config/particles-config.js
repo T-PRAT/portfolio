@@ -1,7 +1,7 @@
 const lightTheme = {
 	particles: {
 		color: {
-			value: "#0E1B23"
+			value: "#10302C"
 		},
 		number: {
 			value: 80,

@@ -8,8 +8,8 @@ export default function Header() {
 	return (
 		<>
 			<nav className='flex items-center justify-between w-full p-3 px-20'>
-				<h2 className='p-2 text-xl rounded-full hover:ring-2 hover:ring-gris-500 active:bg-bleu-200 dark:hover:ring-gris-100 dark:active:bg-gris-300'><Link to="/">tprat.fr</Link></h2>
-				<div onClick={toggleDarkMode} className='p-2 rounded-full h-14 w-14 hover:cursor-pointer hover:animate-spin-slow hover:ring-2 hover:ring-gris-500 active:bg-bleu-200 dark:hover:ring-gris-100 dark:active:bg-gris-300'>
+				<h2 className='p-2 font-bold text-xl rounded-full hover:ring-2 hover:ring-gris-500 active:bg-color-200 dark:hover:ring-gris-100 dark:active:bg-gris-300'><Link to="/">tprat.fr</Link></h2>
+				<div onClick={toggleDarkMode} className='p-2 rounded-full h-14 w-14 hover:cursor-pointer hover:animate-spin-slow hover:ring-2 hover:ring-gris-500 active:bg-color-200 dark:hover:ring-gris-100 dark:active:bg-gris-300'>
 					{darkMode ? (
 						<svg fill='currentColor' viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
 							<path className='' d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />

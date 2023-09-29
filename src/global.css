@@ -4,6 +4,6 @@
 
 html,
 body {
-	@apply h-full overflow-hidden font-mono transition-colors duration-500 bg-bleu-100 text-bleu-500 dark:bg-gris-500 dark:text-gris-100;
-	cursor: none;
+  @apply h-full overflow-hidden font-mono transition-colors duration-500 bg-color-100 text-color-500 dark:bg-gris-500 dark:text-gris-100;
+  cursor: none;
 }
