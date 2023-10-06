@@ -13,7 +13,7 @@ export default function About() {
 				<div className=''>
 					<div className="text-sm md:text-base transition-opacity ">
 						<img className='float-right  sm:block dark:grayscale h-32 md:h-52 rounded-full border-4 backdrop-blur-[3px] m-2' src="/img/titouan_prat.png" alt="Titouan Prat" />
-						<p className='leading-relaxed indent-8'>Je m'appelle <b>Titouan PRAT</b>, je suis un développeur de la région toulousaine. J'ai toujours été attiré par le monde de l'informatique et de la programmation. Pendant mon cursus à l'<b>école 42</b>, j'ai appris à réaliser des projets de A à Z puis avec ma formation à <b>THP </b>j'ai découvert le web et me suis spécialiser sur <b>react</b>. <br />
+						<p className='leading-relaxed indent-8'>Je m'appelle <b>Titouan PRAT</b>, je suis un développeur de la région toulousaine. J'ai toujours été attiré par le monde de l'informatique et de la programmation. Pendant mon cursus à l'<b>école 42</b>, j'ai appris à réaliser des projets de A à Z puis avec ma formation à <b>THP </b>j'ai découvert le web et me suis spécialisé sur <b>react</b>. <br />
 							<span className='ml-8'></span>Passionné par le développement web et le design, j'adore découvrir de nouvelles technologies et je suis toujours en quête de nouvelles compétences.</p>
 					</div>
 					<div className="flex flex-wrap">
