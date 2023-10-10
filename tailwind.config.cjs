@@ -50,6 +50,10 @@ module.exports = {
           "0%, 100%": { opacity: 0 },
           "50%": { opacity: 1 },
         },
+        'fade-in': {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
       },
     },
     animation: {
@@ -57,7 +61,8 @@ module.exports = {
       'slide-up': 'slide-up 0.7s',
       'slide-up-slow': 'slide-up 1s',
       'spin-slow': 'spin ease-in-out 3s infinite',
-      'blink': 'blink 1s infinite',
+      'blink': 'blink 0.8s infinite',
+      'fade-in': 'fade-in 1s ease-in',
     },
   },
 }

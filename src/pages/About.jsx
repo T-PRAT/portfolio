@@ -6,18 +6,18 @@ import Typewriter from '../components/Typewriter';
 export default function About() {
 	return (
 		<>
-			<div className='m-12 absolute z-30 px-0 md:px-12 lg:px-24'>
+			<div className='mx-8 md:mx-24 md:my-12 absolute z-30 px-0 md:px-12 lg:px-24'>
 				<h2>
-					<Typewriter className='mb-10 text-3xl  text-center md:text-left md:text-4xl ' text="À propos de moi" />
+					<Typewriter className='mb-10 text-3xl  text-center md:text-left md:text-4xl ' text="Qui suis-je ?" />
 				</h2>
 				<div className=''>
 					<div className="text-sm md:text-base transition-opacity ">
-						<img className='float-right  sm:block dark:grayscale h-32 md:h-52 rounded-full border-4 backdrop-blur-[3px] m-2' src="/img/titouan_prat.png" alt="Titouan Prat" />
+						<img className='float-right  sm:block dark:grayscale h-24 md:h-52 rounded-full border-4 backdrop-blur-[3px] m-2' src="/img/titouan_prat.png" alt="Titouan Prat" />
 						<p className='leading-relaxed indent-8'>Je m'appelle <b>Titouan PRAT</b>, je suis un développeur de la région toulousaine. J'ai toujours été attiré par le monde de l'informatique et de la programmation. Pendant mon cursus à l'<b>école 42</b>, j'ai appris à réaliser des projets de A à Z puis avec ma formation à <b>THP </b>j'ai découvert le web et me suis spécialisé sur <b>react</b>. <br />
 							<span className='ml-8'></span>Passionné par le développement web et le design, j'adore découvrir de nouvelles technologies et je suis toujours en quête de nouvelles compétences.</p>
 					</div>
 					<div className="flex flex-wrap">
-						<div className='text-sm md:text-xl my-5 lg:pr-32'>N'hésitez pas à <a className='underline' href='/pdf/CV_Tiouan_Prat.pdf' download>télécharger mon CV</a> ou à consulter mon <a className='underline' href='https://www.linkedin.com/in/titouan-prat-3672a9220/'>linkedin</a>.</div>
+						<div className='text-sm md:text-xl my-5 lg:pr-32'>N'hésitez pas à <a className='underline' href='/pdf/CV_Titouan_Prat.pdf' download>télécharger mon CV</a> ou à consulter mon <a className='underline' href='https://www.linkedin.com/in/titouan-prat-3672a9220/'>LinkedIn</a>.</div>
 						<div>
 							<h3 className='text-md md:text-2xl mt-5 mb-2'>Technos préférées</h3>
 							<div className='flex space-x-5'>

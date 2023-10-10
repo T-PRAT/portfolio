@@ -8,7 +8,7 @@ export default function Projects() {
 	const projects = projectsList;
 	return (
 		<>
-			<div id="projects" className='absolute z-30 m-12'>
+			<div id="projects" className='absolute z-30 m-4 md:m-12'>
 				<Typewriter className='mb-10 text-3xl md:text-4xl text-center md:text-left px-0 lg:px-24' text="Mes différentes realisations" />
 				<div className='grid w-full grid-cols-1 lg:grid-cols-2 h-2/4 space-y-4 lg:space-y-0 space-x-0 lg:space-x-4'>
 					{projects.map((project) => (

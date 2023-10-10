@@ -10,7 +10,7 @@ const Typewriter = ({ text, className }) => {
 				setDisplayText((prevText) => prevText + text[currentIndex]);
 				setCurrentIndex((prevIndex) => prevIndex + 1);
 			}
-		}, 60); // Adjust the typing speed here (in milliseconds)
+		}, 30); // Adjust the typing speed here (in milliseconds)
 
 		return () => clearInterval(interval);
 	}, [currentIndex, text]);
