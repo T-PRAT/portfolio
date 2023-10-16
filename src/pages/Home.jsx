@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import Typewriter from '../components/Typewriter'
 import Mountain from '../components/Mountain'
 
-export default function Hero() {
+export default function Home() {
 	return (
 		<>
 			<div id='home' className='absolute z-30 m-12 md:m-24'>

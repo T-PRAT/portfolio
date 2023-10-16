@@ -7,12 +7,10 @@ import { useDarkMode } from "./DarkModeContext";
 export default function ParticleBackground() {
 	const { darkMode } = useDarkMode();
 	const particlesInit = useCallback(async engine => {
-		console.log(engine);
 		await loadSlim(engine);
 	}, []);
 
 	const particlesLoaded = useCallback(async container => {
-		await console.log(container);
 	}, []);
 
 	const selectedTheme = darkMode ? darkTheme : lightTheme;

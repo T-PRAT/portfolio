@@ -1,5 +1,4 @@
 import React from 'react'
-import { useState } from 'react';
 import Mountain from '../components/Mountain';
 import Typewriter from '../components/Typewriter';
 
@@ -8,7 +7,7 @@ export default function About() {
 		<>
 			<div className='mx-8 md:mx-24 md:my-12 absolute z-30 px-0 md:px-12 lg:px-24'>
 				<h2>
-					<Typewriter className='mb-10 text-3xl  text-center md:text-left md:text-4xl ' text="Qui suis-je ?" />
+					<Typewriter className='mb-10 text-3xl md:text-4xl text-center md:text-left' text="Qui suis-je ?" />
 				</h2>
 				<div className=''>
 					<div className="text-sm md:text-base transition-opacity ">
