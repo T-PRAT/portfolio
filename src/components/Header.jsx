@@ -4,12 +4,20 @@ import { useDarkMode } from './DarkModeContext';
 
 export default function Header() {
 	const path = useLocation().pathname;
+	const sections = path.split('/').filter((section) => section !== '');
 	const { darkMode, toggleDarkMode } = useDarkMode();
 
 	return (
 		<>
 			<nav className='flex items-center justify-between w-full mb-3 md:p-3 px-2 md:px-20'>
-				<h2 className='font-bold text-sm md:text-xl rounded-full hover:ring-2 hover:ring-vert-500 active:bg-vert-200 dark:hover:ring-gris-100 dark:active:bg-gris-300'><Link to="/">tprat.fr{path}</Link></h2>
+				<h2 className='font-bold text-sm md:text-xl '>
+					<div>
+						<Link to="/" className='hover:underline'>tprat.fr</Link>
+						{sections.map((section, index) => (
+							<Link className='hover:underline' key={index} to={`/${section}`}>/{section}</Link>
+						))}
+					</div>
+				</h2>
 				<div onClick={toggleDarkMode} className='p-2 rounded-full h-14 w-14 hover:cursor-pointer hover:animate-spin-slow hover:ring-2 hover:ring-vert-500 active:bg-vert-200 dark:hover:ring-gris-100 dark:active:bg-gris-300'>
 					{darkMode ? (
 						<svg fill='currentColor' viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
