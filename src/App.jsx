@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom"
 import { DarkModeProvider } from "./components/DarkModeContext"
+import { Analytics } from '@vercel/analytics/react';
 import ParticleBackground from "./components/ParticleBackground"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
@@ -25,6 +26,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
+      <Analytics />
     </DarkModeProvider>
   )
 }
