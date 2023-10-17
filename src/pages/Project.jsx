@@ -15,9 +15,9 @@ export default function Project() {
 					<h2>
 						<Typewriter className='mb-10 text-3xl md:text-4xl text-center md:text-left' text={project.title} />
 					</h2>
-					<div className='flex flex-wrap'>
+					<div className='flex flex-wrap text-sm sm:text-base p-4 border-4 border-vert-200 dark:border-gris-400 rounded-2xl bg-vert-100/40 dark:bg-gris-500/40 backdrop-blur-sm hover:cursor-pointer'>
 						<div className="text-md md:text-lg max-w-4xl flex flex-col gap-2 mb-7">
-							<p className='leading-relaxed indent-8'>{project.desc}</p>
+							<p className='leading-relaxed indent-2'>{project.desc}</p>
 							<div className='py-2'>
 								<p>Technos utilisées :</p>
 								<p className='italic'>{project.technos}</p>
@@ -29,7 +29,7 @@ export default function Project() {
 								</svg>
 							</a>
 						</div>
-						<img className='dark:grayscale h-52 md:h-64 border-2 rounded-xl backdrop-blur-[3px] m-2 mx-auto' src={`/img/${project.id}.png`} alt={project.title} />
+						<img className='h-40 md:h-64 rounded-xl backdrop-blur-[3px] m-2 mx-auto' src={`/img/${project.id}.png`} alt={project.title} />
 					</div>
 				</div>
 				<Mountain altitude={3} />
