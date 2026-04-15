@@ -1,0 +1,20 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro'
+import ProjectCard from '../ui/ProjectCard.astro'
+import { projects } from '../../data/portfolio'
+---
+<section id="projects" class="py-24 px-6 md:px-12 lg:px-24 max-w-6xl mx-auto snap-start">
+  <div class="reveal">
+    <SectionHeading label="Réalisations" title="Projets" />
+  </div>
+  <div class="flex flex-col gap-4">
+    {projects.map((project, i) => (
+      <div
+        class="reveal w-full md:w-4/5"
+        style={`transition-delay: ${i * 0.08}s; ${i % 2 === 1 ? 'margin-left: auto;' : ''}`}
+      >
+        <ProjectCard project={project} />
+      </div>
+    ))}
+  </div>
+</section>

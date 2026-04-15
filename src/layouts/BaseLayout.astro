@@ -1,0 +1,52 @@
+---
+import '../styles/global.css'
+import DarkModeToggle from '../components/vue/DarkModeToggle.vue'
+import ScrollNav from '../components/ui/ScrollNav.astro'
+
+export interface Props {
+  title?: string
+  description?: string
+}
+
+const {
+  title = 'Titouan Prat — Développeur Fullstack Freelance',
+  description = 'Portfolio de Titouan Prat, développeur fullstack freelance basé à Toulouse. React, Next.js, Vue 3, Node.js.',
+} = Astro.props
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline>
+      const theme = localStorage.getItem('theme')
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      if (theme === 'dark' || (!theme && prefersDark)) {
+        document.documentElement.classList.add('dark')
+      }
+    </script>
+  </head>
+  <body class="bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors duration-300">
+    <ScrollNav />
+    <main>
+      <slot />
+    </main>
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            observer.unobserve(entry.target)
+          }
+        })
+      },
+      { threshold: 0.1 }
+    )
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+  </script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro'
+import { profile } from '../../data/portfolio'
+---
+<section id="about" class="reveal py-24 px-6 md:px-12 lg:px-24 max-w-5xl mx-auto snap-start">
+  <SectionHeading label="À propos" title="Qui suis-je ?" />
+  <div class="max-w-2xl">
+    <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-12">
+      {profile.bio}
+    </p>
+    <div class="space-y-4">
+      {profile.formation.map(f => (
+        <div class="flex gap-8">
+          <span class="text-sm text-neutral-400 dark:text-neutral-500 w-12 shrink-0 mt-0.5">{f.year}</span>
+          <div>
+            <p class="font-semibold text-neutral-900 dark:text-neutral-100 text-sm">{f.school}</p>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">{f.diploma}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

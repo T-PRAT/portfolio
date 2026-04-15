@@ -1,0 +1,164 @@
+---
+const sections = [
+  { id: 'hero', label: 'Intro' },
+  { id: 'projects', label: 'Projets' },
+  { id: 'stack', label: 'Stack' },
+  { id: 'about', label: 'À propos' },
+  { id: 'contact', label: 'Contact' },
+]
+---
+
+<!-- Desktop : vertical gauche -->
+<nav id="scroll-nav-desktop" class="hidden md:flex fixed top-6 left-4 z-50 items-start gap-2 opacity-0 transition-opacity duration-500 pointer-events-none">
+  <div class="relative flex flex-col items-center" style="width: 2px;">
+    <div class="w-full rounded-full bg-neutral-300 dark:bg-neutral-700" style="height: 80px;"></div>
+    <div
+      id="scroll-bar-fill-desktop"
+      class="absolute top-0 left-0 w-full rounded-full bg-neutral-500 dark:bg-neutral-400"
+      style="height: 0px;"
+    ></div>
+    {sections.map((section, i) => (
+      <div
+        class="section-dot absolute left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-neutral-400 dark:bg-neutral-500 transition-colors duration-300"
+        style={`top: ${(i / (sections.length - 1)) * 80}px; margin-top: -2px;`}
+        data-section={section.id}
+      ></div>
+    ))}
+  </div>
+
+  <div class="flex flex-col" style="gap: 0px;">
+    {sections.map((section, i) => (
+      <a
+        href={`#${section.id}`}
+        class="section-link text-neutral-400 dark:text-neutral-600 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors duration-200 leading-none"
+        style={`font-size: 9px; letter-spacing: 0.05em; height: ${i === sections.length - 1 ? 'auto' : `${80 / (sections.length - 1)}px`}; display: flex; align-items: flex-start;`}
+        data-section={section.id}
+      >
+        {section.label}
+      </a>
+    ))}
+  </div>
+</nav>
+
+<!-- Mobile : horizontal haut avec fade -->
+<div id="scroll-nav-mobile" class="md:hidden fixed top-0 left-0 right-0 z-50 opacity-0 transition-opacity duration-500 pointer-events-none">
+  <!-- Fond dégradé -->
+  <div class="absolute inset-0 bg-gradient-to-b from-white dark:from-neutral-950 to-transparent pointer-events-none" style="height: 52px;"></div>
+
+  <!-- Barre de progression horizontale -->
+  <div class="relative w-full h-px bg-neutral-200 dark:bg-neutral-800">
+    <div
+      id="scroll-bar-fill-mobile"
+      class="absolute top-0 left-0 h-full bg-neutral-400 dark:bg-neutral-500"
+      style="width: 0%;"
+    ></div>
+    <!-- Points de section -->
+    {sections.map((section, i) => (
+      <div
+        class="section-dot-mobile absolute top-1/2 -translate-y-1/2 w-1 h-1 rounded-full bg-neutral-300 dark:bg-neutral-700 transition-colors duration-300"
+        style={`left: ${(i / (sections.length - 1)) * 100}%; margin-left: -2px;`}
+        data-section={section.id}
+      ></div>
+    ))}
+  </div>
+
+  <!-- Labels de section -->
+  <div class="relative flex justify-between px-4 pt-1 pointer-events-auto">
+    {sections.map((section) => (
+      <a
+        href={`#${section.id}`}
+        class="section-link-mobile text-neutral-400 dark:text-neutral-600 hover:text-neutral-700 dark:hover:text-neutral-300 transition-colors duration-200"
+        style="font-size: 9px; letter-spacing: 0.05em;"
+        data-section={section.id}
+      >
+        {section.label}
+      </a>
+    ))}
+  </div>
+</div>
+
+<script>
+  const navDesktop = document.getElementById('scroll-nav-desktop')
+  const navMobile = document.getElementById('scroll-nav-mobile')
+  const fillDesktop = document.getElementById('scroll-bar-fill-desktop')
+  const fillMobile = document.getElementById('scroll-bar-fill-mobile')
+  const dotsDesktop = document.querySelectorAll('.section-dot')
+  const dotsMobile = document.querySelectorAll('.section-dot-mobile')
+  const linksDesktop = document.querySelectorAll('.section-link')
+  const linksMobile = document.querySelectorAll('.section-link-mobile')
+
+  const sectionIds = ['hero', 'projects', 'stack', 'about', 'contact']
+
+  function getScrollProgress() {
+    const scrollTop = window.scrollY
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight
+    return docHeight > 0 ? scrollTop / docHeight : 0
+  }
+
+  function getActiveSection() {
+    let active = sectionIds[0]
+    for (const id of sectionIds) {
+      const el = document.getElementById(id)
+      if (el) {
+        const rect = el.getBoundingClientRect()
+        if (rect.top <= window.innerHeight * 0.4) active = id
+      }
+    }
+    return active
+  }
+
+  function update() {
+    const scrollY = window.scrollY
+    const progress = getScrollProgress()
+    const active = getActiveSection()
+
+    const visible = scrollY > 80
+
+    // Desktop
+    navDesktop?.classList.toggle('opacity-100', visible)
+    navDesktop?.classList.toggle('pointer-events-auto', visible)
+    navDesktop?.classList.toggle('opacity-0', !visible)
+    navDesktop?.classList.toggle('pointer-events-none', !visible)
+
+    if (fillDesktop) fillDesktop.style.height = `${progress * 80}px`
+
+    dotsDesktop.forEach((dot) => {
+      const el = dot as HTMLElement
+      const isActive = el.dataset.section === active
+      el.classList.toggle('bg-neutral-700', isActive)
+      el.classList.toggle('bg-neutral-400', !isActive)
+    })
+
+    linksDesktop.forEach((link) => {
+      const el = link as HTMLElement
+      const isActive = el.dataset.section === active
+      el.classList.toggle('text-neutral-700', isActive)
+      el.classList.toggle('text-neutral-400', !isActive)
+    })
+
+    // Mobile
+    navMobile?.classList.toggle('opacity-100', visible)
+    navMobile?.classList.toggle('pointer-events-auto', visible)
+    navMobile?.classList.toggle('opacity-0', !visible)
+    navMobile?.classList.toggle('pointer-events-none', !visible)
+
+    if (fillMobile) fillMobile.style.width = `${progress * 100}%`
+
+    dotsMobile.forEach((dot) => {
+      const el = dot as HTMLElement
+      const isActive = el.dataset.section === active
+      el.classList.toggle('bg-neutral-500', isActive)
+      el.classList.toggle('bg-neutral-300', !isActive)
+    })
+
+    linksMobile.forEach((link) => {
+      const el = link as HTMLElement
+      const isActive = el.dataset.section === active
+      el.classList.toggle('text-neutral-700', isActive)
+      el.classList.toggle('text-neutral-400', !isActive)
+    })
+  }
+
+  window.addEventListener('scroll', update, { passive: true })
+  update()
+</script>
