@@ -21,7 +21,6 @@
   html {
     font-family: 'Space Grotesk', system-ui, sans-serif;
     scroll-behavior: smooth;
-    scroll-snap-type: y proximity;
   }
 
   body {

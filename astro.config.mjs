@@ -4,7 +4,7 @@ import tailwind from '@astrojs/tailwind'
 
 export default defineConfig({
   output: 'static',
-  site: 'https://tprat.fr',
+  site: 'https://tprat.dev',
   integrations: [
     vue(),
     tailwind({ applyBaseStyles: false }),

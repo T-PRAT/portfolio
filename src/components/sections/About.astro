@@ -1,20 +1,37 @@
 ---
 import SectionHeading from '../ui/SectionHeading.astro'
-import { profile } from '../../data/portfolio'
+import { profile, experience, formation } from '../../data/portfolio'
+
+const timelines = [
+  { label: 'Expérience', entries: experience },
+  { label: 'Formation', entries: formation },
+]
 ---
-<section id="about" class="reveal py-24 px-6 md:px-12 lg:px-24 max-w-5xl mx-auto snap-start">
+<section id="about" class="reveal py-24 px-6 md:px-12 lg:px-24 max-w-5xl mx-auto">
   <SectionHeading label="À propos" title="Qui suis-je ?" />
-  <div class="max-w-2xl">
-    <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-12">
+  <div class="grid gap-12 md:grid-cols-[1.4fr_1fr]">
+    <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed">
       {profile.bio}
     </p>
-    <div class="space-y-4">
-      {profile.formation.map(f => (
-        <div class="flex gap-8">
-          <span class="text-sm text-neutral-400 dark:text-neutral-500 w-12 shrink-0 mt-0.5">{f.year}</span>
-          <div>
-            <p class="font-semibold text-neutral-900 dark:text-neutral-100 text-sm">{f.school}</p>
-            <p class="text-sm text-neutral-500 dark:text-neutral-400">{f.diploma}</p>
+    <div class="space-y-10">
+      {timelines.map(t => (
+        <div>
+          <p class="text-xs font-semibold tracking-widest uppercase text-neutral-400 dark:text-neutral-500 mb-4">
+            {t.label}
+          </p>
+          <div class="space-y-5">
+            {t.entries.map(e => (
+              <div class="flex gap-6">
+                <span class="text-sm text-neutral-400 dark:text-neutral-500 w-24 shrink-0 mt-0.5 tabular-nums">{e.period}</span>
+                <div>
+                  <p class="font-semibold text-neutral-900 dark:text-neutral-100 text-sm">{e.title}</p>
+                  <p class="text-sm text-neutral-500 dark:text-neutral-400">{e.place}</p>
+                  {e.description && (
+                    <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">{e.description}</p>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       ))}

@@ -1,6 +1,7 @@
 ---
 const sections = [
   { id: 'hero', label: 'Intro' },
+  { id: 'services', label: 'Offres' },
   { id: 'projects', label: 'Projets' },
   { id: 'stack', label: 'Stack' },
   { id: 'about', label: 'À propos' },
@@ -87,7 +88,7 @@ const sections = [
   const linksDesktop = document.querySelectorAll('.section-link')
   const linksMobile = document.querySelectorAll('.section-link-mobile')
 
-  const sectionIds = ['hero', 'projects', 'stack', 'about', 'contact']
+  const sectionIds = ['hero', 'services', 'projects', 'stack', 'about', 'contact']
 
   function getScrollProgress() {
     const scrollTop = window.scrollY
