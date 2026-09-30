@@ -1,13 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <rect width="1200" height="630" fill="#fff7eb"/>
-  <rect x="70" y="75" width="8" height="480" rx="4" fill="#ffb454"/>
-  <g font-family="DejaVu Sans, sans-serif" fill="#171717">
-    <text x="115" y="135" font-size="28" font-weight="bold">Titouan Prat.</text>
-    <text x="115" y="255" font-size="54" font-weight="bold">De votre idée</text>
-    <text x="115" y="330" font-size="54" font-weight="bold" fill="#9a570b">à une application concrète.</text>
-    <text x="115" y="425" font-size="29">Développeur d'applications web freelance</text>
-    <text x="115" y="475" font-size="24" fill="#525252">Applications web · Produits · Outils sur mesure</text>
-    <text x="115" y="550" font-size="22" fill="#525252">Toulouse / à distance</text>
-    <text x="955" y="550" font-size="22" fill="#7d460e">tprat.dev</text>
+  <rect width="1200" height="630" fill="#0b0e14"/>
+  <g transform="translate(76 68) scale(.62)" fill="#e6e4dc">
+    <path d="M14 20H66V32H46V76H34V32H14Z"/>
+    <path d="M50 20H66C82 20 88 29 88 41S80 62 66 62H54V50H66C73 50 76 46 76 41S73 32 66 32H50Z"/>
+  </g>
+  <g font-family="Space Grotesk, system-ui, sans-serif">
+    <text x="76" y="265" font-size="92" font-weight="700" letter-spacing="-5" fill="#e6e4dc">Titouan Prat<tspan fill="#ffb454">.</tspan></text>
+    <text x="80" y="336" font-size="32" fill="#e6e4dc">Développeur d'applications web</text>
+    <text x="80" y="387" font-size="26" fill="#96948d">De votre idée à une application concrète.</text>
+    <path d="M80 477H1120" stroke="#30343b"/>
+    <text x="80" y="542" font-size="23" fill="#96948d">Freelance · Toulouse / à distance</text>
+    <text x="1120" y="542" text-anchor="end" font-size="25" fill="#ffb454">tprat.dev ↗</text>
   </g>
 </svg>
