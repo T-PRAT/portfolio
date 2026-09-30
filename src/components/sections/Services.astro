@@ -2,15 +2,12 @@
 import SectionHeading from '../ui/SectionHeading.astro'
 import { services } from '../../data/portfolio'
 ---
-<section id="services" class="py-24 px-6 md:px-12 lg:px-24 max-w-5xl mx-auto">
-  <div class="reveal">
-    <SectionHeading label="Offres" title="Ce que je peux faire pour vous" />
-  </div>
+<section id="services" class="page-shell section-space">
+  <SectionHeading label="Offres" title="Ce que je peux faire pour vous" />
   <div class="grid gap-4 md:grid-cols-3">
-    {services.map((s, i) => (
+    {services.map((s) => (
       <article
-        class={'reveal flex flex-col border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors' }
-        style={`transition-delay: ${i * 0.06}s`}
+        class="flex flex-col border border-neutral-200 dark:border-neutral-800 rounded-2xl p-6 hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors"
       >
         <h3 class="text-lg font-semibold text-neutral-900 dark:text-neutral-100 leading-snug mb-2">
           {s.title}
@@ -26,6 +23,7 @@ import { services } from '../../data/portfolio'
             </li>
           ))}
         </ul>
+        <a href={s.proofUrl} class="text-link mt-auto pt-6">{s.proof} <span aria-hidden="true">→</span></a>
       </article>
     ))}
   </div>

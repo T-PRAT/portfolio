@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { profile, experience, formation } from '../data/portfolio'
+---
+<BaseLayout title="CV — Titouan Prat · Développeur d'applications web freelance" description="Parcours, compétences et réalisations de Titouan Prat, développeur d'applications web freelance à Toulouse ou à distance.">
+  <article class="page-shell py-12 md:py-16 max-w-4xl cv-content">
+    <div class="flex flex-wrap gap-3 mb-10 print-actions"><a href="/" class="button-secondary">← Portfolio</a><button id="print-cv" class="button-primary">Imprimer / enregistrer en PDF</button></div>
+    <p class="eyebrow mb-3">Curriculum vitæ</p><h1 class="text-4xl font-bold tracking-tight">Titouan Prat</h1><p class="text-xl mt-3">{profile.title}</p><p class="text-sm font-semibold text-accent-800 dark:text-accent-400 mt-2">{profile.positioning}</p><p class="text-sm text-neutral-600 dark:text-neutral-400 mt-3">Toulouse · Travail à distance · <a href="https://tprat.dev" class="underline">tprat.dev</a></p>
+    <div class="flex flex-wrap gap-5 mt-4 text-sm"><a href={profile.linkedin} class="text-link">LinkedIn ↗</a><a href={profile.github} class="text-link">GitHub ↗</a><a href="/#contact" class="text-link">Me contacter →</a></div>
+    <p class="mt-6 text-neutral-600 dark:text-neutral-300 leading-relaxed">Création et évolution d'applications web, de la conception à la mise en production. Je m'appuie sur des agents IA pour l'implémentation. Mon parcours comprend des projets clients, des produits personnels et une contribution en équipe chez Profil Public.</p>
+    <section class="mt-8"><h2 class="cv-heading">Compétences</h2><ul class="space-y-2 text-sm"><li><strong>Frontend :</strong> Vue 3, Nuxt, React, Next.js, TypeScript, Tailwind CSS</li><li><strong>Backend :</strong> Node.js, Strapi, Hono, SQL</li><li><strong>Intégrations :</strong> API, flux XML / JSON, webhooks, Google Apps Script</li><li><strong>Livraison :</strong> Git, Linux, Docker, tests E2E Playwright</li></ul></section>
+    <section class="mt-8"><h2 class="cv-heading">Expérience</h2>{experience.map(entry => <div class="mb-5"><h3 class="font-semibold">{entry.title} <span class="font-normal text-neutral-500">· {entry.period}</span></h3><p class="text-sm mt-1">{entry.place}</p>{entry.details && <ul class="text-sm mt-2 space-y-1 text-neutral-600 dark:text-neutral-300">{entry.details.map(d => <li>{d}</li>)}</ul>}</div>)}</section>
+    <section class="mt-8"><h2 class="cv-heading">Produits personnels</h2><p class="text-sm mb-3"><strong>Spinnn</strong> — Entraînement cycliste indoor, capteurs Web Bluetooth, pilotage ERG, graphiques D3.js, export FIT et tests E2E. <a class="underline" href="https://www.spinnn.app">spinnn.app</a></p><p class="text-sm"><strong>MyTrailPlan</strong> — Préparation de courses trail à partir de traces GPX, estimation d'allure et plan de ravitaillement. React et TypeScript. <a class="underline" href="https://mytrailplan.com">mytrailplan.com</a></p></section>
+    <section class="mt-8"><h2 class="cv-heading">Formation</h2>{formation.map(entry => <p class="text-sm mb-2"><strong>{entry.place}</strong> · {entry.title} · {entry.period}</p>)}</section>
+    <section class="mt-8"><h2 class="cv-heading">Langues & centres d'intérêt</h2><p class="text-sm">Anglais professionnel · Espagnol intermédiaire</p><p class="text-sm mt-2">Trail, cyclisme, ski-alpinisme et traversées en montagne.</p></section>
+  </article>
+</BaseLayout>
+<script>document.getElementById('print-cv')?.addEventListener('click', () => window.print())</script>
+<style>
+  .cv-heading { font-size: 1.125rem; font-weight: 700; border-bottom: 1px solid #d4d4d4; padding-bottom: .5rem; margin-bottom: 1rem; }
+  @media print {
+    :global(nav), :global(#scroll-nav-mobile), :global(.site-controls), .print-actions { display: none !important; }
+    :global(#main) { padding-top: 0 !important; }
+    :global(body), :global(.dark body) { background: white !important; color: #171717 !important; }
+    .cv-content { padding: 0; max-width: none; font-size: 10pt; }
+    .cv-content :global(*) { color: #171717 !important; }
+    .cv-content section { margin-top: 1.1rem; break-inside: avoid; }
+    .cv-content h1 { font-size: 25pt; }
+    .cv-content p, .cv-content li { font-size: 9pt; }
+    .cv-heading { font-size: 12pt; margin-bottom: .5rem; }
+    @page { size: A4; margin: 14mm; }
+  }
+</style>
