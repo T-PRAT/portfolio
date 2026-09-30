@@ -1,0 +1,12 @@
+---
+import SectionHeading from '../ui/SectionHeading.astro'
+const steps = [
+  ['Comprendre', 'On précise le besoin, les utilisateurs et les contraintes de vos outils actuels. On définit un premier périmètre utile.'],
+  ["Construire avec l'IA", "Je pilote des agents IA pour l'implémentation et partage des versions à tester. Vos retours et la validation du résultat guident les ajustements."],
+  ['Livrer et suivre', "Tests, mise en production et prise en main : je vous accompagne jusqu'à l'utilisation réelle, puis dans les évolutions."],
+]
+---
+<section class="page-shell section-space" id="method">
+  <SectionHeading label="La collaboration" title="Un échange direct, à chaque étape." />
+  <div class="grid md:grid-cols-3 gap-8 md:gap-12">{steps.map(([title, description], i) => <article class="border-t border-neutral-200 dark:border-neutral-800 pt-5"><span class="step-number text-sm font-semibold">0{i + 1}</span><h3 class="text-xl font-semibold mt-4 mb-3">{title}</h3><p class="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed">{description}</p></article>)}</div>
+</section>

@@ -1,28 +1,26 @@
 ---
 import SectionHeading from '../ui/SectionHeading.astro'
-import DarkModeToggle from '../vue/DarkModeToggle.vue'
 import { profile } from '../../data/portfolio'
 
 const inputClass =
   'w-full bg-transparent border border-neutral-200 dark:border-neutral-800 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:outline-none focus:border-neutral-500 dark:focus:border-neutral-400 transition-colors'
 ---
-<section id="contact" class="reveal py-24 px-6 md:px-12 lg:px-24 max-w-5xl mx-auto">
+<section id="contact" class="page-shell section-space border-t border-neutral-200 dark:border-neutral-800">
   <SectionHeading label="Contact" title="Travaillons ensemble" />
   <div class="grid gap-12 md:grid-cols-[1fr_1.2fr]">
     <div>
       <p class="text-lg text-neutral-600 dark:text-neutral-400 mb-8 leading-relaxed">
-        Disponible pour des missions freelance, à Toulouse ou à distance. Décrivez votre projet en quelques lignes, je réponds sous 48 h.
+        Une application à créer, un produit à faire évoluer ? Décrivez votre besoin et vos délais, même si le périmètre reste à préciser. Je réponds sous 48 h.
       </p>
-      <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-2">Ou par mail :</p>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-2">Ou par e-mail :</p>
       <a
         id="contact-email"
         href="#"
         data-u={profile.emailUser}
         data-d={profile.emailDomain}
         class="text-lg font-semibold text-neutral-900 dark:text-neutral-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors w-fit break-all"
-        aria-label="Adresse email"
       >
-        <span aria-hidden="true">[cliquer pour afficher]</span>
+        Afficher mon adresse e-mail
       </a>
       <div class="flex gap-6 mt-8">
         <a
@@ -47,16 +45,16 @@ const inputClass =
     <form id="contact-form" action={profile.formspree} method="POST" class="flex flex-col gap-3" novalidate>
       <div class="grid gap-3 sm:grid-cols-2">
         <label class="flex flex-col gap-1.5">
-          <span class="text-xs font-semibold tracking-widest uppercase text-neutral-400 dark:text-neutral-500">Nom</span>
+          <span class="eyebrow">Nom</span>
           <input name="name" type="text" required autocomplete="name" placeholder="Votre nom" class={inputClass} />
         </label>
         <label class="flex flex-col gap-1.5">
-          <span class="text-xs font-semibold tracking-widest uppercase text-neutral-400 dark:text-neutral-500">Email</span>
+          <span class="eyebrow">E-mail</span>
           <input name="email" type="email" required autocomplete="email" placeholder="vous@exemple.fr" class={inputClass} />
         </label>
       </div>
       <label class="flex flex-col gap-1.5">
-        <span class="text-xs font-semibold tracking-widest uppercase text-neutral-400 dark:text-neutral-500">Message</span>
+        <span class="eyebrow">Message</span>
         <textarea name="message" required rows="5" placeholder="Votre projet, votre besoin, vos délais…" class={inputClass + ' resize-y min-h-[120px]'}></textarea>
       </label>
       <!-- Honeypot : invisible pour un humain, rempli par les bots -->
@@ -65,7 +63,7 @@ const inputClass =
       <div class="flex items-center gap-4 mt-1">
         <button
           type="submit"
-          class="px-6 py-3 bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 rounded-xl font-medium hover:bg-neutral-700 dark:hover:bg-neutral-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm"
+          class="button-primary disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Envoyer
         </button>
@@ -75,10 +73,10 @@ const inputClass =
   </div>
 
   <div class="mt-24 flex items-center justify-between">
-    <p class="text-xs text-neutral-300 dark:text-neutral-700">
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
       {profile.name} · {profile.location}
     </p>
-    <DarkModeToggle client:load />
+    <a href="#hero" class="text-link">Retour en haut ↑</a>
   </div>
 </section>
 
@@ -107,6 +105,7 @@ const inputClass =
       const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')
       if (button) button.disabled = true
       status.textContent = 'Envoi…'
+      status.dataset.state = 'pending'
       try {
         const res = await fetch(form.action, {
           method: 'POST',
@@ -116,13 +115,16 @@ const inputClass =
         if (res.ok) {
           form.reset()
           status.textContent = 'Message envoyé, merci. Je vous réponds rapidement.'
+          status.dataset.state = 'success'
         } else {
           const data = await res.json().catch(() => null)
           status.textContent = data?.errors?.[0]?.message ?? "L'envoi a échoué. Réessayez ou écrivez-moi directement."
-          if (button) button.disabled = false
+          status.dataset.state = 'error'
         }
       } catch {
         status.textContent = 'Pas de connexion. Réessayez ou écrivez-moi directement.'
+        status.dataset.state = 'error'
+      } finally {
         if (button) button.disabled = false
       }
     })

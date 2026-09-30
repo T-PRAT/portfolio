@@ -2,31 +2,28 @@ export interface Project {
 	slug: string;
 	title: string;
 	/** Client / mission ou projet perso */
-	kind: "client" | "perso";
+	kind: "client" | "perso" | "formation";
 	period: string;
 	description: string;
 	highlights?: string[];
 	tags: string[];
 	url?: string;
 	github?: string;
-	image?: string;
+	image?: { src: string; alt: string; width: number; height: number };
+	/** Libellé affiché à la place de « Mission client » / « Projet perso » */
+	kindLabel?: string;
+	/** Précision affichée dans la carte */
+	note?: string;
+	/** Page détaillée du projet */
+	caseUrl?: string;
 }
 
 export interface Service {
 	title: string;
 	description: string;
 	details: string[];
-}
-
-export interface StackItem {
-	name: string;
-	weight: 1 | 2 | 3;
-	icon?: string; // simple-icons key (e.g. "siReact")
-}
-
-export interface StackCategory {
-	label: string;
-	items: StackItem[];
+	proof: string;
+	proofUrl: string;
 }
 
 export interface TimelineEntry {
@@ -34,6 +31,8 @@ export interface TimelineEntry {
 	title: string;
 	place: string;
 	description?: string;
+	/** Détail affiché sur le CV */
+	details?: string[];
 }
 
 export const projects: Project[] = [
@@ -41,16 +40,18 @@ export const projects: Project[] = [
 		slug: "profil-public",
 		title: "Profil Public",
 		kind: "client",
+		kindLabel: "Contribution en équipe",
 		period: "2023 → aujourd'hui",
 		description:
-			"Plateforme de recrutement du secteur public : site d'offres, sites carrière et ATS pour les collectivités et hôpitaux. Trois ans sur le produit, d'abord en alternance puis en freelance.",
+			"Contribution à une plateforme de recrutement du secteur public, au sein de l'équipe de développement. D'abord en alternance, puis sur des missions freelance ponctuelles.",
 		highlights: [
-			"Multidiffusion des offres vers des jobboards partenaires (flux, API, webhooks)",
-			"Fonctionnalités ATS : candidatures, droits, statistiques",
-			"Génération d'offres d'emploi assistée par IA",
+			"Participation à certaines interfaces et fonctionnalités de l'ATS",
+			"Corrections et évolutions ciblées sur un produit existant",
 		],
 		tags: ["Nuxt 3", "Vue 3", "Strapi 4", "Node.js", "TypeScript", "API / XML"],
 		url: "https://profilpublic.fr",
+		caseUrl: "/projets/profil-public/",
+		image: { src: "/projects/profil-public.webp", alt: "Page publique de la plateforme Profil Public", width: 1440, height: 1000 },
 	},
 	{
 		slug: "cva-tracking",
@@ -58,44 +59,14 @@ export const projects: Project[] = [
 		kind: "client",
 		period: "2026",
 		description:
-			"Suivi public des portefeuilles des gérants invités dans C'est Votre Argent (BFM Business). Le back-office est un Google Sheet ; le site le lit à la volée, l'enrichit des cours Yahoo Finance et se revalide à chaque modification.",
+			"Rendre les portefeuilles des gérants de l'émission C'est Votre Argent (BFM Business) faciles à explorer. Le contenu est géré depuis Google Sheets, puis enrichi des cours boursiers sur le site.",
 		highlights: [
-			"Portefeuilles par gérant, fiches valeurs, archive vidéo",
-			"Graphiques de cours annotés des points d'entrée et de sortie",
+			"Une mise à jour du contenu sans passer par un développeur",
+			"Des graphiques reliant achats, ventes et extraits de l'émission",
 		],
 		tags: ["Next.js", "React 19", "Tailwind CSS", "shadcn/ui", "Google Sheets", "Vercel"],
 		url: "https://www.cva-tracking.com/",
-	},
-	{
-		slug: "spinnn",
-		title: "Spinnn",
-		kind: "perso",
-		period: "2026",
-		description:
-			"Application d'entraînement cycliste indoor, façon Zwift maison. Connexion des capteurs en Web Bluetooth, séances structurées et pilotage du home trainer en mode ERG.",
-		highlights: [
-			"Cardio, puissance, cadence et vitesse en temps réel (D3.js)",
-			"Import de séances .ZWO, synchronisation Intervals.icu, export FIT vers Garmin et Strava",
-			"Tests E2E Playwright, mode simulation sans matériel",
-		],
-		tags: ["Vue 3", "Web Bluetooth", "D3.js", "Hono", "Bun", "Docker"],
-		url: "https://www.spinnn.app",
-		github: "https://github.com/T-PRAT/Spinnn",
-	},
-	{
-		slug: "mytrailplan",
-		title: "MyTrailPlan",
-		kind: "perso",
-		period: "2026",
-		description:
-			"Analyse de traces GPX pour préparer une course de trail : profil altimétrique coloré par pente, sections courues ou marchées, allure cible et placement des ravitaillements.",
-		highlights: [
-			"Simulateur d'allure ajustée à la pente (modèle énergétique de Minetti)",
-			"Plan de course interactif avec temps par tronçon et nutrition",
-			"Graphiques en SVG natif, sauvegarde des projets, version imprimable",
-		],
-		tags: ["React 19", "TypeScript", "Vite", "Tailwind CSS", "GPX"],
-		url: "https://mytrailplan.com/",
+		image: { src: "/projects/cva-tracking.webp", alt: "Interface de suivi d'un portefeuille sur CVA Tracking", width: 1440, height: 1000 },
 	},
 	{
 		slug: "ferme-mont-blanc",
@@ -103,20 +74,53 @@ export const projects: Project[] = [
 		kind: "client",
 		period: "2026",
 		description:
-			"Automatisation des réservations d'une association de fermes pédagogiques. Chaque commande HelloAsso arrive par webhook dans un Google Sheet et reconstruit une vue de suivi par semaine et par créneau.",
+			"Une association de fermes pédagogiques autour du Mont-Blanc recevait ses réservations par HelloAsso, puis les recopiait à la main dans un tableur.",
 		highlights: [
-			"Configuration éditable par l'association, sans intervention dev",
-			"Sans serveur : tout tourne dans le compte Google du client",
+			"Chaque réservation arrive automatiquement dans un Google Sheet, regroupée par semaine, ferme et créneau",
+			"Réservations téléphone, espèces et agences fusionnées dans la même vue, sans doublons",
+			"Libellés, seuils et couleurs modifiables par l'association, sans intervention de ma part",
 		],
 		tags: ["Google Apps Script", "Google Sheets", "HelloAsso", "Webhook"],
 	},
 	{
+		slug: "spinnn",
+		title: "Spinnn",
+		kind: "perso",
+		period: "2026",
+		description:
+			"Suivre une séance de vélo indoor depuis son navigateur : capteurs Bluetooth, métriques en direct et résistance du home trainer pilotée automatiquement.",
+		highlights: [
+			"Cardio, puissance, cadence et vitesse en temps réel (D3.js)",
+			"Import de séances .ZWO, synchronisation Intervals.icu, export FIT vers Garmin et Strava",
+		],
+		tags: ["Vue 3", "Web Bluetooth", "D3.js", "Hono", "Bun", "Docker"],
+		url: "https://www.spinnn.app",
+		github: "https://github.com/T-PRAT/Spinnn",
+		note: "Un mode simulation permet de découvrir une séance sans capteurs. La connexion Bluetooth nécessite un navigateur Chromium compatible.",
+		image: { src: "/projects/spinnn.webp", alt: "Interface de l'application d'entraînement cycliste Spinnn", width: 1600, height: 1000 },
+	},
+	{
+		slug: "mytrailplan",
+		title: "MyTrailPlan",
+		kind: "perso",
+		period: "2026",
+		description:
+			"Transformer la trace GPX d'un trail en plan de course : estimer son allure, préparer ses ravitaillements et emporter une stratégie imprimable le jour J.",
+		highlights: [
+			"Simulateur d'allure ajustée à la pente (modèle énergétique de Minetti)",
+			"Plan de course interactif avec temps par tronçon et nutrition",
+		],
+		tags: ["React 19", "TypeScript", "Vite", "Tailwind CSS", "GPX"],
+		url: "https://mytrailplan.com/",
+		image: { src: "/projects/mytrailplan.webp", alt: "Interface de préparation de course MyTrailPlan", width: 1600, height: 1000 },
+	},
+	{
 		slug: "cabanes-pyrenees",
 		title: "Cabanes des Pyrénées",
-		kind: "perso",
+		kind: "formation",
 		period: "2024",
 		description:
-			"Carte interactive des refuges et cabanes des Pyrénées, avec recherche et localisation. Projet final de la formation 3W Academy.",
+			"Carte interactive des refuges et cabanes des Pyrénées, avec recherche et localisation. Réalisée en 2024 à la 3W Academy avec React, TypeScript, Hono et Leaflet.",
 		tags: ["React", "Hono", "Bun", "Leaflet", "TypeScript"],
 		github: "https://github.com/T-PRAT/cabanes_pyrenees",
 	},
@@ -124,102 +128,63 @@ export const projects: Project[] = [
 
 export const services: Service[] = [
 	{
-		title: "Développement web fullstack",
+		title: "Créer votre application",
 		description:
-			"Renfort sur un produit existant ou développement d'une fonctionnalité de A à Z, du modèle de données à l'interface.",
+			"Vous avez une idée ou un besoin métier ? Je vous aide à définir une première version utile et à la transformer en application web accessible à vos utilisateurs.",
 		details: [
-			"Vue, Nuxt, React, Next.js, TypeScript",
-			"Node.js, Strapi, Hono, PostgreSQL",
+			"Cadrage, interfaces et développement",
+			"Première version et mise en production",
 		],
+		proof: "Exemple : CVA Tracking",
+		proofUrl: "#cva-tracking",
 	},
 	{
-		title: "Intégrations & automatisations",
+		title: "Faire évoluer votre produit",
 		description:
-			"Connecter vos outils entre eux : API, flux de données, webhooks, synchronisations, tableaux de suivi qui se mettent à jour seuls.",
+			"Votre application existe déjà ? J'interviens sur des besoins ciblés : ajouter une fonctionnalité, améliorer un parcours ou corriger un problème.",
 		details: [
-			"Connecteurs et flux XML / JSON",
-			"n8n, Google Apps Script, scripts sur mesure",
+			"Fonctionnalités et expérience utilisateur",
+			"Corrections, tests et évolutions",
 		],
+		proof: "Exemple : Profil Public",
+		proofUrl: "#profil-public",
 	},
 	{
-		title: "IA dans le produit",
+		title: "Outiller votre activité",
 		description:
-			"Intégrer des modèles de langage dans un outil métier, avec des sorties structurées et un contrôle des coûts.",
+			"Un suivi compliqué ou des tâches répétitives ? Je développe un outil adapté à votre fonctionnement, en m'appuyant autant que possible sur ce que vous utilisez déjà.",
 		details: [
-			"Génération et extraction de contenu, agents",
-			"Sorties structurées, appels d'outils, RAG",
+			"Tableaux de suivi et outils de gestion",
+			"Automatisation de tâches ciblées",
 		],
-	},
-];
-
-export const stack: StackCategory[] = [
-	{
-		label: "Frontend",
-		items: [
-			{ name: "Vue 3", weight: 3, icon: "siVuedotjs" },
-			{ name: "Nuxt 3", weight: 3, icon: "siNuxt" },
-			{ name: "TypeScript", weight: 3, icon: "siTypescript" },
-			{ name: "React", weight: 3, icon: "siReact" },
-			{ name: "Next.js", weight: 2, icon: "siNextdotjs" },
-			{ name: "Tailwind CSS", weight: 2, icon: "siTailwindcss" },
-			{ name: "shadcn/ui", weight: 1 },
-		],
-	},
-	{
-		label: "Backend",
-		items: [
-			{ name: "Node.js", weight: 3, icon: "siNodedotjs" },
-			{ name: "Strapi", weight: 3, icon: "siStrapi" },
-			{ name: "Hono", weight: 2, icon: "siHono" },
-			{ name: "Bun", weight: 2, icon: "siBun" },
-			{ name: "PostgreSQL", weight: 1, icon: "siPostgresql" },
-		],
-	},
-	{
-		label: "Infra & DevOps",
-		items: [
-			{ name: "Docker", weight: 2, icon: "siDocker" },
-			{ name: "Git", weight: 2, icon: "siGit" },
-			{ name: "Linux", weight: 2, icon: "siLinux" },
-			{ name: "Playwright", weight: 1 },
-		],
-	},
-	{
-		label: "IA & Automatisation",
-		items: [
-			{ name: "LLM & Agents", weight: 2, icon: "siClaude" },
-			{ name: "n8n", weight: 2, icon: "siN8n" },
-			{ name: "Python", weight: 2, icon: "siPython" },
-			{ name: "Apps Script", weight: 1, icon: "siGoogleappsscript" },
-		],
-	},
-	{
-		label: "Spécialités",
-		items: [
-			{ name: "API / XML", weight: 2 },
-			{ name: "Web Bluetooth", weight: 2 },
-			{ name: "D3.js", weight: 1, icon: "siD3" },
-			{ name: "Leaflet", weight: 1, icon: "siLeaflet" },
-			{ name: "GPX / FIT", weight: 1 },
-			{ name: "Extensions Chrome", weight: 1, icon: "siGooglechrome" },
-		],
+		proof: "Exemple : suivi des réservations d'une association",
+		proofUrl: "#ferme-mont-blanc",
 	},
 ];
 
 export const experience: TimelineEntry[] = [
 	{
 		period: "2025 →",
-		title: "Développeur fullstack freelance",
+		title: "Développeur d'applications web freelance",
 		place: "Profil Public, CVA Tracking, associations",
 		description:
-			"Produits web, intégrations, automatisations.",
+			"Applications web, évolutions de produits et outils sur mesure.",
+		details: [
+			"Profil Public : évolutions ciblées de l'ATS et interventions sur des échanges de données partenaires (France Travail / SMOT, FHF, Smartforum).",
+			"CVA Tracking : site Next.js, données Google Sheets et graphiques financiers.",
+			"Mont Blanc Fermes Pédagogiques : automatisation du suivi des réservations HelloAsso.",
+		],
 	},
 	{
 		period: "2023 – 2024",
 		title: "Développeur fullstack en alternance",
 		place: "Profil Public",
 		description:
-			"Nuxt, Strapi, Tailwind CSS.",
+			"Participation au développement au sein de l'équipe : interfaces, fonctionnalités ciblées et correctifs. Nuxt, Strapi, Tailwind CSS.",
+		details: [
+			"Participation au développement au sein de l'équipe : interfaces Nuxt / Vue, fonctionnalités de suivi des candidatures et correctifs Strapi.",
+			"Contribution à une fonctionnalité de génération d'offres assistée par IA.",
+		],
 	},
 ];
 
@@ -238,17 +203,17 @@ export const formation: TimelineEntry[] = [
 
 export const profile = {
 	name: "Titouan Prat",
-	title: "Développeur fullstack freelance",
-	positioning: "Vue / Nuxt · Node · Intégrations & IA",
+	title: "Développeur d'applications web freelance",
+	positioning: "Applications web · Évolutions de produits · Outils sur mesure",
 	tagline:
-		"Je conçois et développe des produits web, du backend aux interfaces, avec un goût pour les intégrations et l'IA. Je construis aussi des outils pour le trail et le vélo.",
+		"Je transforme vos idées en applications concrètes, de la conception à la mise en production.",
 	location: "Toulouse",
-	availability: "Disponible · Toulouse ou remote",
+	availability: "Disponible · Toulouse ou à distance",
 	// Assemblé côté client dans Contact.astro pour ne pas exposer l'adresse aux scrapers
 	emailUser: "titouan.p",
 	emailDomain: "hotmail.fr",
 	formspree: "https://formspree.io/f/mrpgoeeq",
 	linkedin: "https://www.linkedin.com/in/titouan-prat-3672a9220/",
 	github: "https://github.com/T-PRAT",
-	bio: "Développeur fullstack basé à Toulouse. Depuis 2023 je travaille sur Profil Public, une plateforme de recrutement du secteur public, d'abord en alternance puis en freelance. J'interviens aussi sur d'autres produits web et des automatisations pour des associations. Le reste du temps je code des outils pour mes propres sports : Spinnn pour le vélo indoor, MyTrailPlan pour le trail. En dehors du code : trail, ski-alpinisme et longues traversées en montagne.",
+	bio: "Développeur web basé à Toulouse, je crée et fais évoluer des applications pour des clients et pour mes propres usages. J'ai appris les fondamentaux de la programmation à l'École 42 Lyon, puis suivi la formation fullstack de la 3W Academy en alternance, au sein de l'équipe de développement de Profil Public. J'ai ensuite poursuivi avec des missions freelance ponctuelles. Aujourd'hui, je m'appuie sur des agents IA pour l'implémentation et me concentre sur le besoin, les choix de réalisation et la validation du résultat. Côté projets personnels : Spinnn pour le vélo indoor et MyTrailPlan pour le trail. En dehors du travail : trail, ski-alpinisme et longues traversées en montagne.",
 };
