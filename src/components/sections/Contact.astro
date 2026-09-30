@@ -1,5 +1,6 @@
 ---
 import SectionHeading from '../ui/SectionHeading.astro'
+import Logo from '../ui/Logo.astro'
 import { profile } from '../../data/portfolio'
 
 const inputClass =
@@ -73,9 +74,10 @@ const inputClass =
   </div>
 
   <div class="mt-24 flex items-center justify-between">
-    <p class="text-sm text-neutral-500 dark:text-neutral-400">
-      {profile.name} · {profile.location}
-    </p>
+    <div class="flex items-center gap-3">
+      <Logo class="h-8 w-8 shrink-0 text-neutral-900 dark:text-neutral-100" />
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">{profile.name} · {profile.location}</p>
+    </div>
     <a href="#hero" class="text-link">Retour en haut ↑</a>
   </div>
 </section>
