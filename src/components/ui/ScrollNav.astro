@@ -14,12 +14,14 @@ const sections = [
 const link = (id: string) => `${home ? '' : '/'}#${id}`
 ---
 <!-- Desktop : petit menu vertical en haut à gauche -->
-<nav class="mini-nav hidden lg:flex fixed lg:top-6 lg:left-5 z-50 gap-3" aria-label="Navigation principale">
-  <div class="nav-track w-px bg-neutral-200 dark:bg-neutral-800 relative self-start mt-2" aria-hidden="true"><div id="nav-progress" class="absolute top-0 w-full bg-accent-400"></div></div>
-  <div class="flex flex-col text-[11px] leading-6 tracking-wide text-neutral-500 dark:text-neutral-400">
-    <a href="/" aria-label="Titouan Prat — Accueil" class="mb-3 text-neutral-900 dark:text-neutral-100"><Logo class="h-9 w-9" /></a>
-    {sections.map(section => <a href={link(section.id)} data-nav-section={section.id} class="mini-nav-link hover:text-neutral-900 dark:hover:text-neutral-100">{section.label}</a>)}
-    <a href="/cv/" class="mini-nav-link hover:text-neutral-900 dark:hover:text-neutral-100 mt-2" aria-current={Astro.url.pathname.startsWith('/cv') ? 'page' : undefined}>CV</a>
+<nav class="mini-nav hidden lg:flex flex-col fixed lg:top-6 lg:left-5 z-50 gap-3" aria-label="Navigation principale">
+  <a href="/" aria-label="Titouan Prat — Accueil" class="ml-3 pl-px self-start text-neutral-900 dark:text-neutral-100"><Logo class="h-9 w-9" /></a>
+  <div class="flex gap-3">
+    <div class="nav-track w-px bg-neutral-200 dark:bg-neutral-800 relative self-start mt-2" aria-hidden="true"><div id="nav-progress" class="absolute top-0 w-full bg-accent-400"></div></div>
+    <div class="flex flex-col text-[11px] leading-6 tracking-wide text-neutral-500 dark:text-neutral-400">
+      {sections.map(section => <a href={link(section.id)} data-nav-section={section.id} class="mini-nav-link hover:text-neutral-900 dark:hover:text-neutral-100">{section.label}</a>)}
+      <a href="/cv/" class="mini-nav-link hover:text-neutral-900 dark:hover:text-neutral-100 mt-2" aria-current={Astro.url.pathname.startsWith('/cv') ? 'page' : undefined}>CV</a>
+    </div>
   </div>
 </nav>
 
