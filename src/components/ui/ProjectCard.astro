@@ -1,28 +1,84 @@
 ---
+import { Picture, getImage } from 'astro:assets'
 import Tag from './Tag.astro'
 import type { Project } from '../../data/portfolio'
 export interface Props { project: Project }
 const { project } = Astro.props
 const label = project.kindLabel ?? (project.kind === 'client' ? 'Mission client' : 'Projet perso')
+const images = project.images ?? []
+const gallery = images.length > 1
+// Version pleine taille, ouverte en grand au clic (voir Lightbox.astro)
+const fullImages = await Promise.all(images.map(image => getImage({ src: image.src, format: 'webp' })))
+const control = 'absolute top-1/2 -translate-y-1/2 z-10 grid place-items-center h-9 w-9 rounded-full bg-white/85 dark:bg-neutral-900/85 text-neutral-800 dark:text-neutral-100 shadow-sm backdrop-blur transition-opacity duration-300 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 [@media(hover:none)]:opacity-100 disabled:!opacity-0 disabled:pointer-events-none'
 ---
-<article id={project.slug} class="project-card group flex flex-col rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden bg-white dark:bg-neutral-900/30">
-  <p class="eyebrow px-6 py-3 border-b border-neutral-200 dark:border-neutral-800">{label} · {project.period}</p>
-  {project.image && <div class="relative w-full aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-200 dark:border-neutral-800">
-    <img src={project.image.src} alt={project.image.alt} width={project.image.width} height={project.image.height} loading="lazy" class="w-full h-full object-cover object-top transition duration-500 dark:brightness-[0.82] dark:saturate-[0.85] dark:contrast-[0.95] dark:group-hover:brightness-100 dark:group-hover:saturate-100 dark:group-hover:contrast-100" />
-    <div class="pointer-events-none absolute inset-0 hidden bg-neutral-950/30 transition-opacity duration-500 dark:block dark:group-hover:opacity-0" aria-hidden="true"></div>
+<article id={project.slug} class:list={["project-card group flex flex-col rounded-2xl border border-neutral-200 dark:border-neutral-800 overflow-hidden bg-white dark:bg-neutral-900/30", images.length > 0 && "lg:grid lg:grid-cols-[44%_1fr]"]}>
+  <p class="eyebrow px-6 py-3 border-b border-neutral-200 dark:border-neutral-800 lg:col-span-2">{label} · {project.period}</p>
+  {images.length > 0 && <div class="relative w-full aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border-b border-neutral-200 dark:border-b-0 lg:w-auto lg:self-start lg:ml-7 lg:my-7 lg:rounded-lg lg:border lg:dark:border-0 lg:dark:rounded-b-none" data-gallery={gallery ? '' : undefined} role={gallery ? 'region' : undefined} aria-roledescription={gallery ? 'carrousel' : undefined} aria-label={gallery ? `Captures de ${project.title}` : undefined}>
+    <div class="flex h-full overflow-x-auto snap-x snap-mandatory scroll-smooth motion-reduce:scroll-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" data-gallery-track>
+      {images.map((image, i) => <div class="relative h-full w-full shrink-0 snap-start" role={gallery ? 'group' : undefined} aria-roledescription={gallery ? 'capture' : undefined} aria-label={gallery ? `${i + 1} sur ${images.length}` : undefined}>
+        <a href={fullImages[i].src} data-lightbox={project.slug} data-caption={image.alt} aria-label={`Agrandir la capture : ${image.alt}`} class="block h-full w-full cursor-zoom-in">
+          <Picture src={image.src} alt={image.alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 800, 1200, image.src.width]} sizes="(min-width: 1024px) 340px, (min-width: 768px) 92vw, 100vw" loading="lazy" class="w-full h-full object-cover object-top" />
+        </a>
+      </div>)}
+    </div>
+    <!-- Thème sombre : le bas de la capture se fond dans la carte pour adoucir les captures claires -->
+    <div class="pointer-events-none absolute inset-x-0 -bottom-px hidden h-[65%] bg-gradient-to-b from-transparent via-[#0e0e0e]/70 to-[#0e0e0e] dark:block" aria-hidden="true"></div>
+    <!-- Indique au survol que l'image s'agrandit -->
+    <span class="pointer-events-none absolute right-3 top-3 z-10 grid h-8 w-8 place-items-center rounded-full bg-white/85 text-neutral-800 opacity-0 shadow-sm backdrop-blur transition-opacity duration-300 group-hover:opacity-100 dark:bg-neutral-900/85 dark:text-neutral-100 [@media(hover:none)]:hidden" aria-hidden="true">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+    </span>
+    {gallery && <>
+      <button type="button" class={`${control} left-3`} data-gallery-prev aria-label="Capture précédente" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+      </button>
+      <button type="button" class={`${control} right-3`} data-gallery-next aria-label="Capture suivante">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+      <!-- Points : zone cliquable de 24 px pour le doigt, point visible plus petit -->
+      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 z-10 flex rounded-full bg-neutral-950/45 px-1 backdrop-blur">
+        {images.map((_, i) => <button type="button" class="group/dot grid h-6 min-w-6 place-items-center px-1" data-gallery-dot={i} aria-label={`Afficher la capture ${i + 1}`} aria-current={i === 0 ? 'true' : 'false'}><span class="block h-1.5 w-1.5 rounded-full bg-white/50 transition-all group-aria-[current=true]/dot:w-4 group-aria-[current=true]/dot:bg-white" aria-hidden="true"></span></button>)}
+      </div>
+    </>}
   </div>}
-  <div class="p-6 md:p-7 flex flex-col flex-1">
-    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 mb-3">
+  <!-- Grand écran avec image : l'en-tête (titre, tags, description) se place à côté de l'image, le reste passe dessous sur toute la largeur -->
+  <div class:list={["px-6 pt-6 md:px-7 md:pt-7", images.length > 0 && "lg:self-center lg:py-7"]}>
+    <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 mb-3">
       <h3 class="text-xl font-bold tracking-tight">{project.title}</h3>
       <div class="flex flex-wrap gap-1.5">{project.tags.map(tag => <Tag label={tag} />)}</div>
     </div>
-    <p class="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed mb-5">{project.description}</p>
+    <p class="text-neutral-600 dark:text-neutral-300 text-sm leading-relaxed">{project.description}</p>
+  </div>
+  <div class:list={["px-6 pb-6 pt-5 md:px-7 md:pb-7 flex flex-col flex-1", images.length > 0 && "lg:col-span-2 lg:pt-0"]}>
     {project.highlights && <ul class="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">{project.highlights.map(h => <li class="flex gap-2"><span class="text-accent-600 dark:text-accent-400" aria-hidden="true">↳</span><span>{h}</span></li>)}</ul>}
     {project.note && <p class="text-xs text-neutral-500 dark:text-neutral-400 leading-relaxed mt-4">{project.note}</p>}
-    {(project.url || project.github || project.caseUrl) && <div class="flex flex-wrap gap-x-5 gap-y-3 mt-auto pt-5 border-t border-neutral-200 dark:border-neutral-800">
+    {(project.url || project.github || project.caseUrl) && <div class="flex flex-wrap gap-x-5 gap-y-3 mt-auto pt-5 border-t border-neutral-200 dark:border-neutral-800 [&:not(:first-child)]:mt-6">
       {project.url && <a href={project.url} target="_blank" rel="noopener noreferrer" class="text-link" aria-label={`Voir le site de ${project.title} (nouvel onglet)`}>Voir le projet <span aria-hidden="true">↗</span></a>}
-      {project.caseUrl && <a href={project.caseUrl} class="text-link">Mon rôle dans le projet <span aria-hidden="true">→</span></a>}
+      {project.caseUrl && <a href={project.caseUrl} class="text-link">{project.caseLabel ?? 'Mon rôle dans le projet'} <span aria-hidden="true">→</span></a>}
       {project.github && <a href={project.github} target="_blank" rel="noopener noreferrer" class="text-link" aria-label={`Code source de ${project.title} sur GitHub (nouvel onglet)`}>Code source <span aria-hidden="true">↗</span></a>}
     </div>}
   </div>
 </article>
+<script>
+  // Carrousel des captures : défilement natif (glisser, molette, clavier), boutons et points en complément
+  document.querySelectorAll<HTMLElement>('[data-gallery]').forEach(gallery => {
+    const track = gallery.querySelector<HTMLElement>('[data-gallery-track]')
+    const prev = gallery.querySelector<HTMLButtonElement>('[data-gallery-prev]')
+    const next = gallery.querySelector<HTMLButtonElement>('[data-gallery-next]')
+    const dots = Array.from(gallery.querySelectorAll<HTMLButtonElement>('[data-gallery-dot]'))
+    if (!track || !prev || !next) return
+    const last = dots.length - 1
+    const current = () => Math.round(track.scrollLeft / track.clientWidth)
+    const go = (index: number) => track.scrollTo({ left: Math.max(0, Math.min(last, index)) * track.clientWidth })
+    const update = () => {
+      const index = current()
+      dots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === index)))
+      prev.disabled = index <= 0
+      next.disabled = index >= last
+    }
+    prev.addEventListener('click', () => go(current() - 1))
+    next.addEventListener('click', () => go(current() + 1))
+    dots.forEach((dot, i) => dot.addEventListener('click', () => go(i)))
+    track.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true })
+    update()
+  })
+</script>

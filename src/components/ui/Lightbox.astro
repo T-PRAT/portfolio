@@ -1,0 +1,87 @@
+<!--
+  Agrandissement des captures : tout lien <a data-lightbox="groupe" href="image" data-caption="légende">
+  ouvre l'image en grand. Les liens d'un même groupe se parcourent avec les flèches.
+  Sans JavaScript, le lien ouvre simplement l'image.
+-->
+<dialog id="lightbox" aria-label="Capture agrandie" class="fixed inset-0 m-0 h-[100dvh] max-h-none w-screen max-w-none overflow-hidden border-0 bg-transparent p-0 text-white backdrop:bg-neutral-950/90 backdrop:backdrop-blur-sm">
+  <button type="button" data-lightbox-close aria-label="Fermer" class="absolute right-4 top-4 z-10 grid h-10 w-10 place-items-center rounded-full bg-white/10 transition-colors hover:bg-white/20">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <figure data-lightbox-frame class="flex h-full w-full flex-col items-center justify-center gap-4 px-4 py-16 md:px-20">
+    <img data-lightbox-img alt="" class="max-h-[78dvh] max-w-full rounded-lg object-contain shadow-2xl" />
+    <figcaption class="max-w-2xl text-center text-sm text-white/75">
+      <span data-lightbox-caption></span>
+      <span data-lightbox-count class="ml-2 tabular-nums text-white/50"></span>
+    </figcaption>
+  </figure>
+  <button type="button" data-lightbox-prev aria-label="Capture précédente" class="absolute left-3 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 transition hover:bg-white/20 disabled:opacity-0 md:left-6">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  <button type="button" data-lightbox-next aria-label="Capture suivante" class="absolute right-3 top-1/2 z-10 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full bg-white/10 transition hover:bg-white/20 disabled:opacity-0 md:right-6">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+</dialog>
+<script>
+  const dialog = document.getElementById('lightbox') as HTMLDialogElement | null
+  const img = dialog?.querySelector<HTMLImageElement>('[data-lightbox-img]')
+  const frame = dialog?.querySelector<HTMLElement>('[data-lightbox-frame]')
+  const caption = dialog?.querySelector<HTMLElement>('[data-lightbox-caption]')
+  const count = dialog?.querySelector<HTMLElement>('[data-lightbox-count]')
+  const prev = dialog?.querySelector<HTMLButtonElement>('[data-lightbox-prev]')
+  const next = dialog?.querySelector<HTMLButtonElement>('[data-lightbox-next]')
+  const close = dialog?.querySelector<HTMLButtonElement>('[data-lightbox-close]')
+
+  if (dialog && img && frame && caption && count && prev && next && close) {
+    let items: HTMLAnchorElement[] = []
+    let index = 0
+    let opener: HTMLAnchorElement | null = null
+
+    const show = (target: number) => {
+      index = Math.max(0, Math.min(items.length - 1, target))
+      const link = items[index]
+      img.src = link.href
+      img.alt = link.dataset.caption ?? ''
+      caption.textContent = link.dataset.caption ?? ''
+      count.textContent = items.length > 1 ? `${index + 1} / ${items.length}` : ''
+      prev.hidden = next.hidden = items.length < 2
+      prev.disabled = index === 0
+      next.disabled = index === items.length - 1
+    }
+
+    document.addEventListener('click', event => {
+      const link = (event.target as Element | null)?.closest<HTMLAnchorElement>('a[data-lightbox]')
+      // Ctrl/Cmd-clic ou clic du milieu : comportement normal du lien (ouvrir l'image)
+      if (!link || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+      event.preventDefault()
+      items = Array.from(document.querySelectorAll<HTMLAnchorElement>(`a[data-lightbox="${CSS.escape(link.dataset.lightbox ?? '')}"]`))
+      opener = link
+      show(items.indexOf(link))
+      dialog.showModal()
+    })
+
+    prev.addEventListener('click', () => show(index - 1))
+    next.addEventListener('click', () => show(index + 1))
+    close.addEventListener('click', () => dialog.close())
+    // Un clic à côté de l'image ferme
+    dialog.addEventListener('click', event => {
+      if (event.target === dialog || event.target === frame) dialog.close()
+    })
+    dialog.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft') show(index - 1)
+      if (event.key === 'ArrowRight') show(index + 1)
+    })
+    // Glisser du doigt pour changer de capture
+    let startX: number | null = null
+    dialog.addEventListener('touchstart', event => { startX = event.touches[0].clientX }, { passive: true })
+    dialog.addEventListener('touchend', event => {
+      if (startX === null) return
+      const delta = event.changedTouches[0].clientX - startX
+      if (Math.abs(delta) > 50) show(index + (delta < 0 ? 1 : -1))
+      startX = null
+    })
+    dialog.addEventListener('close', () => {
+      img.removeAttribute('src')
+      opener?.focus()
+    })
+  }
+</script>

@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { profile } from '../data/portfolio'
+
+// À compléter : pour un entrepreneur individuel, la loi demande d'afficher l'adresse et le téléphone.
+// Laissés vides, ces champs ne s'affichent pas.
+const adresse = ''
+const telephone = ''
+
+const heading = 'text-2xl font-bold mb-4'
+const text = 'text-neutral-600 dark:text-neutral-300 leading-relaxed'
+const section = 'py-8 border-t border-neutral-200 dark:border-neutral-800'
+---
+<BaseLayout title="Mentions légales et confidentialité · Titouan Prat" description="Mentions légales du site tprat.dev et informations sur les données personnelles collectées par le formulaire de contact.">
+  <article class="page-shell py-12 md:py-20 max-w-3xl">
+    <a href="/" class="text-link mb-10">← Retour à l'accueil</a>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight mb-10">Mentions légales et confidentialité</h1>
+
+    <section class={section}>
+      <h2 class={heading}>Éditeur du site</h2>
+      <dl class:list={[text, 'grid gap-x-6 gap-y-2 sm:grid-cols-[auto_1fr]']}>
+        <dt class="font-semibold text-neutral-900 dark:text-neutral-100">Éditeur</dt>
+        <dd>Titouan Prat, entrepreneur individuel (micro-entrepreneur)</dd>
+        <dt class="font-semibold text-neutral-900 dark:text-neutral-100">SIRET</dt>
+        <dd class="tabular-nums">839 673 902 00020</dd>
+        {adresse && <><dt class="font-semibold text-neutral-900 dark:text-neutral-100">Adresse</dt><dd>{adresse}</dd></>}
+        {telephone && <><dt class="font-semibold text-neutral-900 dark:text-neutral-100">Téléphone</dt><dd class="tabular-nums">{telephone}</dd></>}
+        <dt class="font-semibold text-neutral-900 dark:text-neutral-100">E-mail</dt>
+        <dd><a id="legal-email" href="#" data-u={profile.emailUser} data-d={profile.emailDomain} class="text-link break-all">Afficher l'adresse e-mail</a></dd>
+        <dt class="font-semibold text-neutral-900 dark:text-neutral-100">Directeur de la publication</dt>
+        <dd>Titouan Prat</dd>
+      </dl>
+    </section>
+
+    <section class={section}>
+      <h2 class={heading}>Hébergement</h2>
+      <p class={text}>OVH SAS, 2 rue Kellermann, 59100 Roubaix, France. Téléphone : +33 9 72 10 10 07. Le serveur qui héberge le site est situé en France.</p>
+    </section>
+
+    <section class={section}>
+      <h2 class={heading}>Propriété intellectuelle</h2>
+      <p class={text}>Les textes et le logo de ce site appartiennent à Titouan Prat. Les captures d'écran présentent des projets clients et des projets personnels : les marques et les contenus qui y figurent appartiennent à leurs titulaires.</p>
+    </section>
+
+    <section class={section}>
+      <h2 class={heading}>Données personnelles</h2>
+      <h3 class="font-semibold mb-2">Formulaire de contact</h3>
+      <ul class:list={[text, 'space-y-2 mb-6']}>
+        <li><strong class="font-semibold">Données collectées :</strong> votre nom, votre adresse e-mail et votre message.</li>
+        <li><strong class="font-semibold">Pourquoi :</strong> répondre à votre demande et, si besoin, vous faire une proposition.</li>
+        <li><strong class="font-semibold">Qui les reçoit :</strong> moi seul. Le formulaire passe par le service Formspree (Formspree, Inc., États-Unis), qui me transmet votre message par e-mail.</li>
+        <li><strong class="font-semibold">Combien de temps :</strong> le temps de notre échange, puis trois ans au plus après le dernier contact.</li>
+      </ul>
+      <h3 class="font-semibold mb-2">Mesure d'audience</h3>
+      <p class:list={[text, 'mb-6']}>Le site compte ses visites avec Cloudflare Web Analytics (Cloudflare, Inc.). Cet outil produit des statistiques globales : il ne dépose aucun cookie et ne sert pas à vous identifier.</p>
+      <h3 class="font-semibold mb-2">Cookies</h3>
+      <p class:list={[text, 'mb-6']}>Le site ne dépose aucun cookie. Seule votre préférence de thème, clair ou sombre, est enregistrée dans votre navigateur, sans être transmise.</p>
+      <h3 class="font-semibold mb-2">Vos droits</h3>
+      <p class={text}>Vous pouvez accéder à vos données, les faire rectifier ou effacer, et vous opposer à leur utilisation : écrivez-moi à l'adresse indiquée plus haut. Vous pouvez aussi adresser une réclamation à la <a href="https://www.cnil.fr/" target="_blank" rel="noopener noreferrer" class="text-link">CNIL <span aria-hidden="true">↗</span></a>.</p>
+    </section>
+  </article>
+</BaseLayout>
+<script>
+  // Adresse assemblée au clic, comme dans la section Contact : absente du HTML, donc invisible pour les scrapers
+  const link = document.getElementById('legal-email') as HTMLAnchorElement | null
+  link?.addEventListener('click', (event) => {
+    if (link.href.startsWith('mailto:')) return
+    event.preventDefault()
+    const address = `${link.dataset.u}@${link.dataset.d}`
+    link.href = `mailto:${address}`
+    link.textContent = address
+  })
+</script>
