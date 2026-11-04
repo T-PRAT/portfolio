@@ -1,5 +1,5 @@
 ---
-import DarkModeToggle from '../vue/DarkModeToggle.vue'
+import ThemeToggle from './ThemeToggle.astro'
 import Logo from './Logo.astro'
 const home = Astro.url.pathname === '/'
 const sections = [
@@ -52,7 +52,7 @@ const link = (id: string) => `${home ? '' : '/'}#${id}`
   </div>
 </div>
 
-<div class="site-controls fixed top-9 right-3 lg:top-5 lg:right-5 z-50 flex items-center gap-3"><a href="/" aria-label="Titouan Prat — Accueil" class="lg:hidden text-neutral-900 dark:text-neutral-100"><Logo class="h-8 w-8" /></a><DarkModeToggle client:load /></div>
+<div class="site-controls fixed top-9 right-3 lg:top-5 lg:right-5 z-50 flex items-center gap-3"><a href="/" aria-label="Titouan Prat — Accueil" class="lg:hidden text-neutral-900 dark:text-neutral-100"><Logo class="h-8 w-8" /></a><ThemeToggle /></div>
 <script>
   const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-nav-section]'))
   const dots = Array.from(document.querySelectorAll<HTMLElement>('[data-mobile-dot]'))
