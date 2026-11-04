@@ -1,21 +1,33 @@
+import type { ImageMetadata } from "astro";
+import profilPublicImage from "../assets/projects/profil-public.webp";
+import cvaTrackingPortefeuilleImage from "../assets/projects/cva-tracking-portefeuille.webp";
+import cvaTrackingArticlesImage from "../assets/projects/cva-tracking-articles.webp";
+import spinnnAccueilImage from "../assets/projects/spinnn-accueil.webp";
+import spinnnGuideImage from "../assets/projects/spinnn-guide.webp";
+import spinnnImage from "../assets/projects/spinnn.webp";
+import mytrailplanImage from "../assets/projects/mytrailplan.webp";
+
 export interface Project {
 	slug: string;
 	title: string;
 	/** Client / mission ou projet perso */
-	kind: "client" | "perso" | "formation";
+	kind: "client" | "perso";
 	period: string;
 	description: string;
 	highlights?: string[];
 	tags: string[];
 	url?: string;
 	github?: string;
-	image?: { src: string; alt: string; width: number; height: number };
+	/** Captures placées dans src/assets/projects/, la première est affichée d'abord */
+	images?: { src: ImageMetadata; alt: string }[];
 	/** Libellé affiché à la place de « Mission client » / « Projet perso » */
 	kindLabel?: string;
 	/** Précision affichée dans la carte */
 	note?: string;
 	/** Page détaillée du projet */
 	caseUrl?: string;
+	/** Libellé du lien vers la page détaillée (par défaut « Mon rôle dans le projet ») */
+	caseLabel?: string;
 }
 
 export interface Service {
@@ -43,7 +55,7 @@ export const projects: Project[] = [
 		kindLabel: "Contribution en équipe",
 		period: "2023 → aujourd'hui",
 		description:
-			"Contribution à une plateforme de recrutement du secteur public, au sein de l'équipe de développement. D'abord en alternance, puis sur des missions freelance ponctuelles.",
+			"Contribution à une plateforme de recrutement du secteur public, au sein de l'équipe de développement. D'abord en alternance, puis sur des missions freelance régulières.",
 		highlights: [
 			"Participation à certaines interfaces et fonctionnalités de l'ATS",
 			"Corrections et évolutions ciblées sur un produit existant",
@@ -51,7 +63,7 @@ export const projects: Project[] = [
 		tags: ["Nuxt 3", "Vue 3", "Strapi 4", "Node.js", "TypeScript", "API / XML"],
 		url: "https://profilpublic.fr",
 		caseUrl: "/projets/profil-public/",
-		image: { src: "/projects/profil-public.webp", alt: "Page publique de la plateforme Profil Public", width: 1440, height: 1000 },
+		images: [{ src: profilPublicImage, alt: "Page publique de la plateforme Profil Public" }],
 	},
 	{
 		slug: "cva-tracking",
@@ -63,10 +75,17 @@ export const projects: Project[] = [
 		highlights: [
 			"Une mise à jour du contenu sans passer par un développeur",
 			"Des graphiques reliant achats, ventes et extraits de l'émission",
+			"Un espace personnel pour suivre ses valeurs favorites et recevoir un récapitulatif hebdomadaire par e-mail",
+			"Transcription automatique des émissions avec détection des interlocuteurs, et brouillons d'articles rédigés par IA puis relus avant publication",
 		],
 		tags: ["Next.js", "React 19", "Tailwind CSS", "shadcn/ui", "Google Sheets", "Vercel"],
 		url: "https://www.cva-tracking.com/",
-		image: { src: "/projects/cva-tracking.webp", alt: "Interface de suivi d'un portefeuille sur CVA Tracking", width: 1440, height: 1000 },
+		caseUrl: "/projets/cva-tracking/",
+		caseLabel: "Le projet en détail",
+		images: [
+			{ src: cvaTrackingPortefeuilleImage, alt: "Positions d'un portefeuille de gérant sur CVA Tracking" },
+			{ src: cvaTrackingArticlesImage, alt: "Page des articles d'analyse sur CVA Tracking" },
+		],
 	},
 	{
 		slug: "ferme-mont-blanc",
@@ -92,12 +111,16 @@ export const projects: Project[] = [
 		highlights: [
 			"Cardio, puissance, cadence et vitesse en temps réel (D3.js)",
 			"Import de séances .ZWO, synchronisation Intervals.icu, export FIT vers Garmin et Strava",
+			"Un guide propose une séance selon le temps disponible et l'objectif, parmi une bibliothèque intégrée",
 		],
-		tags: ["Vue 3", "Web Bluetooth", "D3.js", "Hono", "Bun", "Docker"],
+		tags: ["Vue 3", "TypeScript", "Web Bluetooth", "D3.js", "Convex", "Cloudflare Workers"],
 		url: "https://www.spinnn.app",
-		github: "https://github.com/T-PRAT/Spinnn",
-		note: "Un mode simulation permet de découvrir une séance sans capteurs. La connexion Bluetooth nécessite un navigateur Chromium compatible.",
-		image: { src: "/projects/spinnn.webp", alt: "Interface de l'application d'entraînement cycliste Spinnn", width: 1600, height: 1000 },
+		note: "La connexion Bluetooth nécessite un navigateur Chromium compatible.",
+		images: [
+			{ src: spinnnAccueilImage, alt: "Page d'accueil de Spinnn" },
+			{ src: spinnnGuideImage, alt: "Guide de choix d'une séance selon le temps disponible et l'objectif dans Spinnn" },
+			{ src: spinnnImage, alt: "Vue d'une séance en cours dans Spinnn : temps du bloc, puissance, cadence et fréquence cardiaque" },
+		],
 	},
 	{
 		slug: "mytrailplan",
@@ -112,17 +135,7 @@ export const projects: Project[] = [
 		],
 		tags: ["React 19", "TypeScript", "Vite", "Tailwind CSS", "GPX"],
 		url: "https://mytrailplan.com/",
-		image: { src: "/projects/mytrailplan.webp", alt: "Interface de préparation de course MyTrailPlan", width: 1600, height: 1000 },
-	},
-	{
-		slug: "cabanes-pyrenees",
-		title: "Cabanes des Pyrénées",
-		kind: "formation",
-		period: "2024",
-		description:
-			"Carte interactive des refuges et cabanes des Pyrénées, avec recherche et localisation. Réalisée en 2024 à la 3W Academy avec React, TypeScript, Hono et Leaflet.",
-		tags: ["React", "Hono", "Bun", "Leaflet", "TypeScript"],
-		github: "https://github.com/T-PRAT/cabanes_pyrenees",
+		images: [{ src: mytrailplanImage, alt: "Interface de préparation de course MyTrailPlan" }],
 	},
 ];
 
@@ -171,7 +184,7 @@ export const experience: TimelineEntry[] = [
 			"Applications web, évolutions de produits et outils sur mesure.",
 		details: [
 			"Profil Public : évolutions ciblées de l'ATS et interventions sur des échanges de données partenaires (France Travail / SMOT, FHF, Smartforum).",
-			"CVA Tracking : site Next.js, données Google Sheets et graphiques financiers.",
+			"CVA Tracking : site Next.js, données Google Sheets, graphiques financiers, espace personnel, transcription automatique des émissions et génération d'articles par IA.",
 			"Mont Blanc Fermes Pédagogiques : automatisation du suivi des réservations HelloAsso.",
 		],
 	},
@@ -215,5 +228,5 @@ export const profile = {
 	formspree: "https://formspree.io/f/mrpgoeeq",
 	linkedin: "https://www.linkedin.com/in/titouan-prat-3672a9220/",
 	github: "https://github.com/T-PRAT",
-	bio: "Développeur web basé à Toulouse, je crée et fais évoluer des applications pour des clients et pour mes propres usages. J'ai appris les fondamentaux de la programmation à l'École 42 Lyon, puis suivi la formation fullstack de la 3W Academy en alternance, au sein de l'équipe de développement de Profil Public. J'ai ensuite poursuivi avec des missions freelance ponctuelles. Aujourd'hui, je m'appuie sur des agents IA pour l'implémentation et me concentre sur le besoin, les choix de réalisation et la validation du résultat. Côté projets personnels : Spinnn pour le vélo indoor et MyTrailPlan pour le trail. En dehors du travail : trail, ski-alpinisme et longues traversées en montagne.",
+	bio: "Développeur web basé à Toulouse, je crée et fais évoluer des applications pour des clients et pour mes propres usages. J'ai appris les fondamentaux de la programmation à l'École 42 Lyon, puis suivi la formation fullstack de la 3W Academy en alternance, au sein de l'équipe de développement de Profil Public. J'ai ensuite poursuivi avec des missions freelance régulières. Aujourd'hui, je m'appuie sur des agents IA pour l'implémentation et me concentre sur le besoin, les choix de réalisation et la validation du résultat. Côté projets personnels : Spinnn pour le vélo indoor et MyTrailPlan pour le trail. En dehors du travail : trail, ski-alpinisme et longues traversées en montagne.",
 };
