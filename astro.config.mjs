@@ -1,13 +1,13 @@
 import { defineConfig } from 'astro/config'
-import vue from '@astrojs/vue'
 import tailwind from '@astrojs/tailwind'
+import sitemap from '@astrojs/sitemap'
 
 export default defineConfig({
   output: 'static',
   site: 'https://tprat.dev',
   devToolbar: { enabled: false },
   integrations: [
-    vue(),
     tailwind({ applyBaseStyles: false }),
+    sitemap(),
   ],
 })

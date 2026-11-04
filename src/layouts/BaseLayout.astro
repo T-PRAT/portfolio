@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css'
 import ScrollNav from '../components/ui/ScrollNav.astro'
+import Lightbox from '../components/ui/Lightbox.astro'
+import { profile } from '../data/portfolio'
 
 export interface Props {
   title?: string
@@ -13,6 +15,36 @@ const {
 } = Astro.props
 const canonical = new URL(Astro.url.pathname, Astro.site)
 const shareImage = new URL('/og-cover.png', Astro.site)
+const home = Astro.url.pathname === '/'
+
+// Données structurées pour les moteurs de recherche (page d'accueil uniquement)
+const siteUrl = new URL('/', Astro.site).href
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${siteUrl}#person`,
+      name: profile.name,
+      jobTitle: profile.title,
+      url: siteUrl,
+      sameAs: [profile.linkedin, profile.github],
+      address: { '@type': 'PostalAddress', addressLocality: profile.location, addressCountry: 'FR' },
+    },
+    {
+      '@type': 'ProfessionalService',
+      '@id': `${siteUrl}#service`,
+      name: `${profile.name} — ${profile.title}`,
+      description,
+      url: siteUrl,
+      image: shareImage.href,
+      founder: { '@id': `${siteUrl}#person` },
+      address: { '@type': 'PostalAddress', addressLocality: profile.location, addressCountry: 'FR' },
+      areaServed: [{ '@type': 'City', name: profile.location }, { '@type': 'Country', name: 'France' }],
+      knowsLanguage: 'fr',
+    },
+  ],
+}
 ---
 <!doctype html>
 <html lang="fr">
@@ -39,6 +71,10 @@ const shareImage = new URL('/og-cover.png', Astro.site)
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <!-- Mesure d'audience sans cookie (Cloudflare Web Analytics), seulement sur le site en ligne -->
+    {import.meta.env.PROD && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "619ac6b0734d4b06a74e8afd2e45b441"}'></script>}
+    {home && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
     <script is:inline>
@@ -53,8 +89,15 @@ const shareImage = new URL('/og-cover.png', Astro.site)
   <body class="bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 transition-colors duration-300">
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:text-neutral-900 focus:p-4">Aller au contenu</a>
     <ScrollNav />
-    <main id="main" class={Astro.url.pathname === '/' ? '' : 'pt-20 lg:pt-12'}>
+    <main id="main" class={home ? '' : 'pt-20 lg:pt-12'}>
       <slot />
     </main>
+    {!home && <footer class="page-shell pb-10 print:hidden">
+      <div class="flex flex-wrap justify-between gap-4 border-t border-neutral-200 dark:border-neutral-800 pt-6 text-sm text-neutral-500 dark:text-neutral-400">
+        <span>{profile.name} · {profile.location}</span>
+        <a href="/mentions-legales/" class="hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors">Mentions légales et confidentialité</a>
+      </div>
+    </footer>}
+    <Lightbox />
   </body>
 </html>

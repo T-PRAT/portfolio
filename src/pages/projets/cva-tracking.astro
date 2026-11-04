@@ -1,0 +1,80 @@
+---
+import { Picture, getImage } from 'astro:assets'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Tag from '../../components/ui/Tag.astro'
+import accueilImage from '../../assets/projects/cva-tracking-accueil.webp'
+import portefeuilleImage from '../../assets/projects/cva-tracking-portefeuille.webp'
+import valeurImage from '../../assets/projects/cva-tracking-valeur.webp'
+import articlesImage from '../../assets/projects/cva-tracking-articles.webp'
+
+const realisations = [
+  "Un portefeuille par gérant : positions en cours et vendues, performance, filtres par secteur, capitalisation, année d'achat et éligibilité au PEA.",
+  "Des graphiques de cours annotés des achats et des ventes, avec moyennes mobiles et courbe Total Return.",
+  "Une fiche par valeur, qui réunit les gérants qui l'ont conseillée et les extraits vidéo de l'émission.",
+  "L'archive des émissions, les extraits vidéo par valeur et les interviews des gérants.",
+  "Une recherche multicritère dès la page d'accueil, et le partage sur les réseaux sociaux.",
+  "Des articles d'analyse : les brouillons sont rédigés par IA à partir de faits sourcés, puis relus avant publication.",
+  "La transcription automatique des émissions, avec détection des interlocuteurs.",
+  "Un espace personnel pour suivre ses valeurs favorites et recevoir un récapitulatif hebdomadaire par e-mail.",
+]
+
+const captures = [
+  { src: accueilImage, alt: "Page d'accueil : dernières entrées et sorties des gérants, recherche multicritère" },
+  { src: portefeuilleImage, alt: "Portefeuille d'un gérant : positions en cours, cours d'achat et performance" },
+  { src: valeurImage, alt: "Fiche valeur : gérants qui suivent l'action et graphique annoté de l'achat" },
+  { src: articlesImage, alt: "Articles d'analyse publiés autour des conseils des gérants" },
+]
+// Version pleine taille, ouverte en grand au clic (voir Lightbox.astro)
+const fullCaptures = await Promise.all(captures.map(capture => getImage({ src: capture.src, format: 'webp' })))
+
+const tags = ['Next.js', 'React 19', 'TypeScript', 'Tailwind CSS', 'shadcn/ui', 'Lightweight Charts', 'Google Sheets', 'Convex', 'Vercel']
+---
+<BaseLayout title="CVA Tracking — Mission client · Titouan Prat" description="CVA Tracking rassemble les achats et les ventes des gérants invités dans C'est Votre Argent (BFM Business) : portefeuilles, performances, graphiques et extraits vidéo.">
+  <article class="page-shell py-12 md:py-20 max-w-4xl">
+    <a href="/#cva-tracking" class="text-link mb-10">← Retour aux projets</a>
+    <p class="eyebrow mb-5">Mission client · 2026</p>
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">CVA Tracking</h1>
+    <p class="text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed mt-7">Le site qui rassemble les conseils des gérants invités dans C'est Votre Argent, l'émission de BFM Business, et suit leur performance dans le temps.</p>
+
+    <section class="mt-10 py-8 border-t border-neutral-200 dark:border-neutral-800">
+      <h2 class="text-2xl font-bold mb-4">Le besoin</h2>
+      <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">Chaque semaine, dans C'est Votre Argent, des gérants annoncent leurs achats et leurs ventes à l'antenne. Le client voulait rassembler ces conseils sur un site public, les comparer aux cours réels et suivre la performance de chaque portefeuille dans le temps. Le contenu devait rester simple à mettre à jour : depuis un tableur, sans passer par un développeur.</p>
+    </section>
+
+    <section class="py-8 border-t border-neutral-200 dark:border-neutral-800">
+      <h2 class="text-2xl font-bold mb-4">Ce que j'ai réalisé</h2>
+      <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed mb-5">J'ai développé le site à partir de février 2026, et je le fais évoluer depuis au fil des demandes du client.</p>
+      <ul class="space-y-3 text-neutral-600 dark:text-neutral-300 leading-relaxed">
+        {realisations.map(item => <li class="flex gap-2"><span class="text-accent-600 dark:text-accent-400" aria-hidden="true">↳</span><span>{item}</span></li>)}
+      </ul>
+    </section>
+
+    <section class="py-8 border-t border-neutral-200 dark:border-neutral-800">
+      <h2 class="text-2xl font-bold mb-4">Un contenu géré depuis un tableur</h2>
+      <p class="text-neutral-600 dark:text-neutral-300 leading-relaxed">Le client saisit les émissions, les gérants et leurs transactions dans un Google Sheet. Le site lit ces données, les complète avec les cours de bourse et se met à jour à chaque modification du tableur. Le client gère ainsi son contenu seul.</p>
+    </section>
+
+    <section class="py-8 border-t border-neutral-200 dark:border-neutral-800" aria-labelledby="captures-heading">
+      <h2 id="captures-heading" class="text-2xl font-bold mb-2">Captures</h2>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-6">Cliquez sur une capture pour l'agrandir.</p>
+      <div class="grid gap-6 md:grid-cols-2">
+        {captures.map((capture, i) => <figure>
+          <a href={fullCaptures[i].src} data-lightbox="cva-tracking-page" data-caption={capture.alt} aria-label={`Agrandir la capture : ${capture.alt}`} class="block overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-800 cursor-zoom-in">
+            <Picture src={capture.src} alt={capture.alt} formats={['avif', 'webp']} fallbackFormat="webp" widths={[480, 800, 1200]} sizes="(min-width: 768px) 420px, 100vw" loading="lazy" class="w-full aspect-[16/10] object-cover object-top transition duration-300 hover:scale-[1.02]" />
+          </a>
+          <figcaption class="mt-2 text-sm text-neutral-500 dark:text-neutral-400 leading-relaxed">{capture.alt}</figcaption>
+        </figure>)}
+      </div>
+    </section>
+
+    <section class="py-8 border-t border-neutral-200 dark:border-neutral-800">
+      <h2 class="text-2xl font-bold mb-4">Technologies</h2>
+      <div class="flex flex-wrap gap-1.5">{tags.map(tag => <Tag label={tag} />)}</div>
+    </section>
+
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-4 pt-8 border-t border-neutral-200 dark:border-neutral-800">
+      <a href="https://www.cva-tracking.com/" target="_blank" rel="noopener noreferrer" class="text-link" aria-label="Voir le site CVA Tracking (nouvel onglet)">Voir le site <span aria-hidden="true">↗</span></a>
+      <a href="/#contact" class="button-primary">Un projet similaire ? Parlons-en <span aria-hidden="true">→</span></a>
+    </div>
+  </article>
+</BaseLayout>

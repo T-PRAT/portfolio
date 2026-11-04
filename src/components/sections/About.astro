@@ -17,13 +17,13 @@ const timelines = [
     <div class="space-y-10">
       {timelines.map(t => (
         <div>
-          <p class="text-xs font-semibold tracking-widest uppercase text-neutral-400 dark:text-neutral-500 mb-4">
+          <p class="text-xs font-semibold tracking-widest uppercase text-neutral-500 dark:text-neutral-400 mb-4">
             {t.label}
           </p>
           <div class="space-y-5">
             {t.entries.map(e => (
               <div class="flex gap-6">
-                <span class="text-sm text-neutral-400 dark:text-neutral-500 w-24 shrink-0 mt-0.5 tabular-nums">{e.period}</span>
+                <span class="text-sm text-neutral-500 dark:text-neutral-400 w-24 shrink-0 mt-0.5 tabular-nums">{e.period}</span>
                 <div>
                   <p class="font-semibold text-neutral-900 dark:text-neutral-100 text-sm">{e.title}</p>
                   <p class="text-sm text-neutral-500 dark:text-neutral-400">{e.place}</p>

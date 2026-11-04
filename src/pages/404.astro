@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+<BaseLayout title="Page introuvable · Titouan Prat" description="Cette page n'existe pas ou a été déplacée.">
+  <section class="page-shell min-h-[70svh] flex flex-col justify-center py-12 md:py-20">
+    <p class="eyebrow mb-5">Erreur 404</p>
+    <h1 class="text-4xl md:text-6xl font-bold tracking-tight">Page introuvable</h1>
+    <p class="text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mt-6 max-w-xl">Cette page n'existe pas ou a été déplacée. Vous pouvez revenir à l'accueil ou consulter mes réalisations.</p>
+    <div class="flex flex-wrap gap-3 mt-9">
+      <a href="/" class="button-primary">Retour à l'accueil</a>
+      <a href="/#projects" class="button-secondary">Voir mes réalisations</a>
+    </div>
+  </section>
+</BaseLayout>
