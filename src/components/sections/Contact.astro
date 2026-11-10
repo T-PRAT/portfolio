@@ -26,6 +26,7 @@ const inputClass =
       <div class="flex gap-6 mt-8">
         <a
           href={profile.linkedin}
+          data-umami-event="lien-linkedin"
           target="_blank"
           rel="noopener noreferrer"
           class="text-sm font-medium text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
@@ -34,6 +35,7 @@ const inputClass =
         </a>
         <a
           href={profile.github}
+          data-umami-event="lien-github"
           target="_blank"
           rel="noopener noreferrer"
           class="text-sm font-medium text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
@@ -92,6 +94,7 @@ const inputClass =
       const addr = `${link.dataset.u}@${link.dataset.d}`
       link.href = `mailto:${addr}`
       link.textContent = addr
+      window.umami?.track('email-affiche')
     })
   }
 
@@ -116,6 +119,7 @@ const inputClass =
         })
         if (res.ok) {
           form.reset()
+          window.umami?.track('formulaire-envoye')
           status.textContent = 'Message envoyé, merci. Je vous réponds rapidement.'
           status.dataset.state = 'success'
         } else {
