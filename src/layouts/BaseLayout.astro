@@ -72,8 +72,8 @@ const structuredData = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <!-- Mesure d'audience sans cookie (Cloudflare Web Analytics), seulement sur le site en ligne -->
-    {import.meta.env.PROD && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "619ac6b0734d4b06a74e8afd2e45b441"}'></script>}
+    <!-- Mesure d'audience sans cookie (Umami auto-hébergé), seulement sur le site en ligne -->
+    {import.meta.env.PROD && <script is:inline defer src="https://stats.tprat.dev/script.js" data-website-id="289bbb3e-13ce-4321-81d5-5ffa70d023fd" data-domains="tprat.dev,www.tprat.dev"></script>}
     {home && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
